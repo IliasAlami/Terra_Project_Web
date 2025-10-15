@@ -98,22 +98,3 @@ body{
 footer{margin-top:60px;border-top:1px solid var(--line);background:#0c0c0e}
 footer .inner{max-width:1100px;margin:auto;padding:22px 20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 footer small{color:var(--muted)}
-script.js
-javascript
-Copier le code
-// active link + burger
-(function () {
-  // activer le lien courant
-  const path = location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav a').forEach(a=>{
-    const href = a.getAttribute('href');
-    if ((path === '' && href.endsWith('index.html')) || href.endsWith(path)) {
-      a.classList.add('active');
-    }
-  });
-
-  // burger
-  const burger = document.querySelector('.burger');
-  const nav = document.querySelector('.nav');
-  if (burger && nav) burger.addEventListener('click', ()=> nav.classList.toggle('show'));
-})();
