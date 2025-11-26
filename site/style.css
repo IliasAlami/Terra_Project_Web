@@ -63,7 +63,7 @@ body {
   display: grid;
   grid-template-columns: auto 1fr auto; /* brand | nav | boutons */
   align-items: center;
-  column-gap: 40px;
+  column-gap: 150px;
 }
 
 /* Bloc logo + texte à gauche */
@@ -77,12 +77,14 @@ body {
 }
 
 .brand-logo {
-  height: 150px; /* taille du logo, tu peux ajuster ici */
+  height: 60px; /* taille du logo, tu peux ajuster ici */
   width: auto;
   display: block;
 }
 
-
+.brand-text {
+  margin-left: -4px;   /* colle encore plus le texte au logo */
+}
 
 .brand-name {
   font-weight: 800;
