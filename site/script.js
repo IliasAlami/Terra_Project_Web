@@ -1,21 +1,6 @@
 window.addEventListener('DOMContentLoaded', () => {
 
   /* --------------------------------------------------------------
-     0. ÉTAT D'AUTH (localStorage)
-  -------------------------------------------------------------- */
-  const AUTH_KEY = 'tp5v5-logged-in';
-
-  const isLoggedIn = () => localStorage.getItem(AUTH_KEY) === 'true';
-  const setLoggedIn = (value) => {
-    if (value) {
-      localStorage.setItem(AUTH_KEY, 'true');
-    } else {
-      localStorage.removeItem(AUTH_KEY);
-    }
-  };
-
-
-  /* --------------------------------------------------------------
      1. BURGER MENU (mobile)
   -------------------------------------------------------------- */
   const burger = document.querySelector('.burger');
@@ -27,9 +12,8 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-
   /* --------------------------------------------------------------
-     2. SÉLECTEURS DES MODALES & FORMULAIRES
+     2. AUTH / MODALES
   -------------------------------------------------------------- */
   const loginBtn = document.querySelector('#btn-login');
 
@@ -51,64 +35,19 @@ window.addEventListener('DOMContentLoaded', () => {
   const linkOpenRegister = document.querySelector('#open-register');
   const linkOpenLogin = document.querySelector('#open-login');
 
+  // petit flag de connexion dans le localStorage
+  const AUTH_KEY = 'tp5v5-logged';
 
-  /* --------------------------------------------------------------
-   3. PROFIL VERROUILLÉ (page profil)
--------------------------------------------------------------- */
-const isProfilePage = document.body.classList.contains('page-profile');
-const profileLocked = document.querySelector('#profile-locked');
-const lockedLoginBtn = document.querySelector('#locked-login-btn');
-const lockedBackBtn = document.querySelector('#locked-back-btn');
-
-/* Verrouille visuellement la page profil */
-function lockProfilePage() {
-  if (!isProfilePage || !profileLocked) return;
-  document.body.classList.add('page-profile-locked');
-  profileLocked.classList.add('show');
-}
-
-/* Déverrouille visuellement la page profil */
-function unlockProfilePage() {
-  if (!isProfilePage || !profileLocked) return;
-  document.body.classList.remove('page-profile-locked');
-  profileLocked.classList.remove('show');
-}
-
-/* Vérification de l'état de connexion au chargement de la page */
-if (isProfilePage) {
-  if (isLoggedIn()) {
-    unlockProfilePage();
-  } else {
-    lockProfilePage();
+  function isLoggedIn() {
+    return localStorage.getItem(AUTH_KEY) === 'true';
   }
-}
 
-/* Bouton "Se connecter" dans le profil verrouillé */
-if (lockedLoginBtn) {
-  lockedLoginBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    openModal(loginModal);
-  });
-}
-
-/* Bouton "Retour" dans le profil verrouillé */
-if (lockedBackBtn) {
-  lockedBackBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    // Retour à la page précédente si possible
-    if (history.length > 1) {
-      history.back();
-    } else {
-      // Sinon retour à l'accueil
-      window.location.href = "index.html";
-    }
-  });
-}
-
+  function setLoggedIn(value) {
+    localStorage.setItem(AUTH_KEY, value ? 'true' : 'false');
+  }
 
   /* --------------------------------------------------------------
-     4. OUVERTURE / FERMETURE MODALES
+     3. OUVERTURE / FERMETURE MODALES
   -------------------------------------------------------------- */
   function openModal(modal) {
     modal?.classList.add('open');
@@ -120,7 +59,7 @@ if (lockedBackBtn) {
     modal?.setAttribute('aria-hidden', 'true');
   }
 
-  /* Bouton Se connecter (navbar) */
+  // Ouvrir la modale de connexion depuis le header
   if (loginBtn) {
     loginBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -128,35 +67,35 @@ if (lockedBackBtn) {
     });
   }
 
-  /* Fermer modale login */
+  // Fermer modale login
   loginClose?.addEventListener('click', () => closeModal(loginModal));
   loginBackdrop?.addEventListener('click', () => closeModal(loginModal));
 
-  /* Fermer modale inscription */
+  // Fermer modale inscription
   registerClose?.addEventListener('click', () => closeModal(registerModal));
   registerBackdrop?.addEventListener('click', () => closeModal(registerModal));
 
-
   /* --------------------------------------------------------------
-     5. TRANSITION SLIDE ENTRE CONNEXION <-> INSCRIPTION
+     4. SLIDE CONNEXION <-> INSCRIPTION
   -------------------------------------------------------------- */
-
   function showRegister() {
     if (!loginModal || !registerModal) return;
-    loginModal.classList.add("slide-left");
+    loginModal.classList.add('slide-left');
+
     setTimeout(() => {
       closeModal(loginModal);
-      loginModal.classList.remove("slide-left");
+      loginModal.classList.remove('slide-left');
       openModal(registerModal);
     }, 200);
   }
 
   function showLogin() {
     if (!loginModal || !registerModal) return;
-    registerModal.classList.add("slide-right");
+    registerModal.classList.add('slide-right');
+
     setTimeout(() => {
       closeModal(registerModal);
-      registerModal.classList.remove("slide-right");
+      registerModal.classList.remove('slide-right');
       openModal(loginModal);
     }, 200);
   }
@@ -171,9 +110,8 @@ if (lockedBackBtn) {
     showLogin();
   });
 
-
   /* --------------------------------------------------------------
-     6. FERMETURE AVEC LA TOUCHE ÉCHAP
+     5. FERMETURE AVEC ESC
   -------------------------------------------------------------- */
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
@@ -182,62 +120,54 @@ if (lockedBackBtn) {
     }
   });
 
-
   /* --------------------------------------------------------------
-     7. CALLBACK GÉNÉRAL APRÈS CONNEXION / INSCRIPTION
+     6. VALIDATION FORMULAIRE DE CONNEXION
   -------------------------------------------------------------- */
-  function afterLoginOrRegister() {
+  function handleLoginSuccess() {
     setLoggedIn(true);
-    if (isProfilePage) {
-      unlockProfilePage();
-    }
+    updateProfileLockState();
   }
 
-
-  /* --------------------------------------------------------------
-     8. VALIDATION FORMULAIRE DE CONNEXION + LOADER
-  -------------------------------------------------------------- */
   if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
-
-      if (loginError) loginError.textContent = "";
+      if (loginError) loginError.textContent = '';
 
       const email = loginForm.elements['email'].value.trim();
       const password = loginForm.elements['password'].value.trim();
 
       if (!email || !password) {
-        if (loginError) loginError.textContent = "Merci de renseigner e-mail et mot de passe.";
+        if (loginError) {
+          loginError.textContent = 'Merci de renseigner e-mail et mot de passe.';
+        }
         return;
       }
 
-      // Loader animé
+      // Loader
       const submitBtn = loginForm.querySelector('.auth-submit');
-      if (submitBtn) {
-        submitBtn.innerHTML = '<div class="loader"></div>';
-      }
+      if (!submitBtn) return;
+
+      submitBtn.innerHTML = '<div class="loader"></div>';
 
       setTimeout(() => {
         alert('Connexion réussie (simulation).');
+        handleLoginSuccess();
 
-        if (submitBtn) submitBtn.textContent = "Se connecter";
+        submitBtn.textContent = 'Se connecter';
         closeModal(loginModal);
         loginForm.reset();
-
-        afterLoginOrRegister();
       }, 1500);
     });
   }
 
-
   /* --------------------------------------------------------------
-     9. VALIDATION FORMULAIRE D'INSCRIPTION
+     7. VALIDATION FORMULAIRE D’INSCRIPTION
   -------------------------------------------------------------- */
   if (registerForm) {
     registerForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      if (registerError) registerError.textContent = "";
+      if (registerError) registerError.textContent = '';
       const inputs = registerForm.querySelectorAll('input');
       inputs.forEach(i => i.classList.remove('input-error'));
 
@@ -248,7 +178,7 @@ if (lockedBackBtn) {
       let hasError = false;
 
       if (!email || !password || !confirm) {
-        if (registerError) registerError.textContent = "Merci de remplir tous les champs.";
+        if (registerError) registerError.textContent = 'Merci de remplir tous les champs.';
         inputs.forEach(i => {
           if (!i.value.trim()) i.classList.add('input-error');
         });
@@ -256,14 +186,14 @@ if (lockedBackBtn) {
       }
 
       if (!hasError && password.length < 8) {
-        if (registerError) registerError.textContent = "Le mot de passe doit faire au moins 8 caractères.";
+        if (registerError) registerError.textContent = 'Le mot de passe doit faire au moins 8 caractères.';
         registerForm.elements['password'].classList.add('input-error');
         registerForm.elements['confirm'].classList.add('input-error');
         hasError = true;
       }
 
       if (!hasError && password !== confirm) {
-        if (registerError) registerError.textContent = "Les mots de passe ne correspondent pas.";
+        if (registerError) registerError.textContent = 'Les mots de passe ne correspondent pas.';
         registerForm.elements['password'].classList.add('input-error');
         registerForm.elements['confirm'].classList.add('input-error');
         hasError = true;
@@ -271,18 +201,14 @@ if (lockedBackBtn) {
 
       if (hasError) return;
 
-      alert("Compte créé avec succès (simulation).");
-
+      alert('Compte créé avec succès (simulation).');
       closeModal(registerModal);
       registerForm.reset();
-
-      afterLoginOrRegister();
     });
   }
 
-
   /* --------------------------------------------------------------
-     10. ANIMATION D'APPARITION DES SECTIONS (fade-in)
+     8. ANIMATION FADE-IN SUR LES SECTIONS
   -------------------------------------------------------------- */
   const fadeElements = document.querySelectorAll('.fade-in');
 
@@ -295,5 +221,4 @@ if (lockedBackBtn) {
   });
 
   fadeElements.forEach(el => observer.observe(el));
-
-});
+})
