@@ -58,7 +58,7 @@ body {
 /* Nouveau conteneur du header */
 .header-inner {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: auto;
   padding: 14px 32px;
   display: grid;
   grid-template-columns: auto 1fr auto; /* brand | nav | boutons */
@@ -77,14 +77,12 @@ body {
 }
 
 .brand-logo {
-  height: 60px; /* taille du logo, tu peux ajuster ici */
+  height: 150px; /* taille du logo, tu peux ajuster ici */
   width: auto;
   display: block;
+  margin-left: -200px;
 }
 
-.brand-text {
-  margin-left: -4px;   /* colle encore plus le texte au logo */
-}
 
 .brand-name {
   font-weight: 800;
@@ -103,7 +101,7 @@ body {
 .nav {
   display: flex;
   justify-content: center;
-  gap: 22px;
+  gap: 50px;
   align-items: center;
 }
 
@@ -126,6 +124,7 @@ body {
   align-items: center;
   justify-content: flex-end;
   gap: 12px;
+  margin-right: -200px;
 }
 
 
