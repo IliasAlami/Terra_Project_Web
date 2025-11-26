@@ -53,56 +53,58 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
   /* --------------------------------------------------------------
-     3. PROFIL VERROUILLÉ (page profil)
-  -------------------------------------------------------------- */
-  const isProfilePage = document.body.classList.contains('page-profile');
-  const profileLocked = document.querySelector('#profile-locked');
-  const lockedLoginBtn = document.querySelector('#locked-login-btn');
+   3. PROFIL VERROUILLÉ (page profil)
+-------------------------------------------------------------- */
+const isProfilePage = document.body.classList.contains('page-profile');
+const profileLocked = document.querySelector('#profile-locked');
+const lockedLoginBtn = document.querySelector('#locked-login-btn');
+const lockedBackBtn = document.querySelector('#locked-back-btn');
 
-  function lockProfilePage() {
-    if (!isProfilePage || !profileLocked) return;
-    document.body.classList.add('page-profile-locked');
-    profileLocked.classList.add('show');
+/* Verrouille visuellement la page profil */
+function lockProfilePage() {
+  if (!isProfilePage || !profileLocked) return;
+  document.body.classList.add('page-profile-locked');
+  profileLocked.classList.add('show');
+}
+
+/* Déverrouille visuellement la page profil */
+function unlockProfilePage() {
+  if (!isProfilePage || !profileLocked) return;
+  document.body.classList.remove('page-profile-locked');
+  profileLocked.classList.remove('show');
+}
+
+/* Vérification de l'état de connexion au chargement de la page */
+if (isProfilePage) {
+  if (isLoggedIn()) {
+    unlockProfilePage();
+  } else {
+    lockProfilePage();
   }
+}
 
-  function unlockProfilePage() {
-    if (!isProfilePage || !profileLocked) return;
-    document.body.classList.remove('page-profile-locked');
-    profileLocked.classList.remove('show');
-  }
+/* Bouton "Se connecter" dans le profil verrouillé */
+if (lockedLoginBtn) {
+  lockedLoginBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    openModal(loginModal);
+  });
+}
 
-  // Init état profil à l'arrivée sur la page
-  if (isProfilePage) {
-    if (isLoggedIn()) {
-      unlockProfilePage();
-    } else {
-      lockProfilePage();
-    }
-  }
-
-  if (lockedLoginBtn) {
-    lockedLoginBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openModal(loginModal);
-    });
-  }
-
-  const lockedBackBtn = document.querySelector('#locked-back-btn');
-
+/* Bouton "Retour" dans le profil verrouillé */
 if (lockedBackBtn) {
   lockedBackBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
-    // Si on peut réellement revenir en arrière
+    // Retour à la page précédente si possible
     if (history.length > 1) {
       history.back();
     } else {
-      // Sinon on retourne à l'accueil
+      // Sinon retour à l'accueil
       window.location.href = "index.html";
     }
   });
 }
-
 
 
   /* --------------------------------------------------------------

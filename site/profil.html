@@ -86,14 +86,20 @@
 </main>
 
 <!-- Overlay "profil verrouillé" si pas connecté -->
+<!-- Overlay "profil verrouillé" si pas connecté -->
 <div class="profile-locked" id="profile-locked">
   <div class="profile-locked-backdrop"></div>
   <div class="profile-locked-card">
     <h2>Profil verrouillé</h2>
     <p>Connecte-toi pour accéder à ton profil joueur.</p>
-    <button class="btn btn-primary" id="locked-login-btn">Se connecter</button>
+
+    <div class="locked-buttons">
+        <button class="btn btn-primary" id="locked-login-btn">Se connecter</button>
+        <button class="btn btn-ghost" id="locked-back-btn">Retour</button>
+    </div>
   </div>
 </div>
+
 
 <!-- Fenêtre de connexion -->
 <div class="auth-modal" id="login-modal" aria-hidden="true">

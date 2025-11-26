@@ -758,6 +758,8 @@ footer small {
 
 /* --------- VERROUILLAGE PAGE PROFIL QUAND NON CONNECTÉ --------- */
 
+/* --------- VERROUILLAGE PAGE PROFIL QUAND NON CONNECTÉ --------- */
+
 .page-profile .profile-container {
   transition: filter 0.3s ease, opacity 0.3s ease;
 }
