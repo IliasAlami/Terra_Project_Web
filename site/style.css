@@ -1,6 +1,10 @@
 /* -----------------------------------------------------------
    Design système / Variables globales
 ----------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   --bg: #0b0b0c;          /* Fond principal */
   --panel: rgba(0,0,0,.65);
@@ -123,10 +127,15 @@ body {
 .btn-primary {
   background: var(--brand);
   color: #000;
+  transition: 0.25s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-primary:hover {
   filter: brightness(1.15);
+  box-shadow: 0 0 12px rgba(255,145,0,0.6);
+  transform: translateY(-2px);
 }
 
 /* Bouton "Se connecter" style ghost amélioré */
@@ -135,14 +144,14 @@ body {
   color: #fff;
   background: rgba(255,255,255,0.08);
   font-weight: 700;
-  transition: 0.25s ease;
+  transition: 0.3s ease;
 }
 
 .btn-ghost:hover {
   border-color: var(--brand);
-  background: rgba(255,255,255,0.15);
-  color: #fff;
-  box-shadow: 0 0 8px rgba(255,145,0,0.4);
+  background: rgba(255,255,255,0.18);
+  box-shadow: 0 0 10px rgba(255,145,0,0.45);
+  transform: translateY(-2px);
 }
 
 /* -----------------------------------------------------------
@@ -516,3 +525,234 @@ footer small {
   border-color: #ff4d4d !important;
   box-shadow: 0 0 8px rgba(255,77,77,0.4);
 }
+
+.auth-modal-dialog {
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.auth-modal.slide-left .auth-modal-dialog {
+  transform: translateX(-30px);
+  opacity: 0;
+}
+
+.auth-modal.slide-right .auth-modal-dialog {
+  transform: translateX(30px);
+  opacity: 0;
+}
+
+.card {
+  transition: 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 22px rgba(0,0,0,0.45);
+  border-color: var(--brand);
+}
+
+.nav a {
+  position: relative;
+}
+
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0%;
+  height: 2px;
+  background: var(--brand);
+  transition: width 0.25s ease;
+}
+
+.nav a:hover::after {
+  width: 100%;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.loader {
+  width: 26px;
+  height: 26px;
+  border: 3px solid rgba(255,255,255,0.2);
+  border-top-color: var(--brand);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  margin: 10px auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.nav a.active {
+  color: #fff;
+  font-weight: 800;
+  text-shadow: 0 0 5px rgba(255,145,0,0.4);
+}
+
+.auth-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.auth-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;          
+  padding-inline: 16px;  
+}
+
+/* --------- PAGE PROFIL --------- */
+
+.profile-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.profile-title {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: var(--brand);
+}
+
+.profile-header {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.avatar-wrapper {
+  text-align: center;
+}
+
+#avatar-display {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 3px solid var(--brand);
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+/* Inputs */
+.profile-info label {
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.profile-info input,
+.profile-info select {
+  width: 250px;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 8px;
+  color: var(--text);
+}
+
+/* Stats */
+.stats-section h2 {
+  margin-bottom: 10px;
+  font-size: 26px;
+  color: var(--brand);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.stat-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 16px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.stat-card input {
+  width: 70%;
+  text-align: center;
+  margin-top: 8px;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 6px;
+  color: var(--text);
+}
+
+/* Bouton enregistrer */
+.save-btn {
+  display: block;
+  width: 100%;
+  margin-top: 30px;
+}
+
+
+/* --------- MODALE AVATAR --------- */
+
+.avatar-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.avatar-modal.open {
+  display: flex;
+}
+
+.avatar-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+}
+
+.avatar-dialog {
+  background: #151515;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  z-index: 2;
+  width: 420px;
+}
+
+.avatar-grid {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+}
+
+.avatar-option {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: .2s;
+}
+
+.avatar-option:hover {
+  border-color: var(--brand);
+  transform: scale(1.05);
+}
+

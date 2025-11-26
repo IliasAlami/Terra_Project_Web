@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Profil joueur – Terra Project 5v5</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="profile.js"></script>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="inner">
+    <div class="logo">Terra Project<span>5v5</span></div>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="le-jeu.html">Le jeu</a>
+      <a href="actualites.html">Actualités</a>
+      <a href="faq.html">FAQ</a>
+      <a href="profil.html" class="active">Profil</a>
+    </nav>
+    <div class="auth-actions">
+      <button class="btn btn-ghost" id="btn-login">Se connecter</button>
+      <a class="btn btn-primary" href="#">Télécharger</a>
+    </div>
+  </div>
+</header>
+
+
+<main class="profile-container fade-in">
+
+  <h1 class="profile-title">Profil du joueur</h1>
+
+  <!-- Avatar + pseudo -->
+  <section class="profile-header">
+    <div class="avatar-wrapper">
+      <img id="avatar-display" src="assets/avatars/default.png" alt="Avatar">
+      <button class="btn btn-primary" id="change-avatar">Changer d'avatar</button>
+    </div>
+
+    <div class="profile-info">
+      <label>Pseudo :</label>
+      <input type="text" id="pseudo-input" placeholder="Ton pseudo">
+      
+      <label>Rang :</label>
+      <select id="rank-select">
+        <option>Bronze</option>
+        <option>Argent</option>
+        <option>Or</option>
+        <option>Platine</option>
+        <option>Diamant</option>
+        <option>Maître</option>
+        <option>Challenger</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- Statistiques -->
+  <section class="stats-section">
+    <h2>Statistiques</h2>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>K/D</h3>
+        <input type="number" step="0.01" id="kd-input" placeholder="1.25">
+      </div>
+
+      <div class="stat-card">
+        <h3>Winrate (%)</h3>
+        <input type="number" id="winrate-input" placeholder="54">
+      </div>
+
+      <div class="stat-card">
+        <h3>Parties jouées</h3>
+        <input type="number" id="games-input" placeholder="120">
+      </div>
+
+      <div class="stat-card">
+        <h3>Niveau</h3>
+        <input type="number" id="level-input" placeholder="32">
+      </div>
+    </div>
+  </section>
+
+  <!-- Sauvegarde -->
+  <button class="btn btn-primary save-btn" id="save-profile">Enregistrer le profil</button>
+
+</main>
+
+
+<!-- Fenêtre de choix d'avatar -->
+<div class="avatar-modal" id="avatar-modal">
+  <div class="avatar-backdrop"></div>
+  <div class="avatar-dialog">
+    <h2>Choisir un avatar</h2>
+
+    <div class="avatar-grid">
+      <img class="avatar-option" src="assets/avatars/a1.png">
+      <img class="avatar-option" src="assets/avatars/a2.png">
+      <img class="avatar-option" src="assets/avatars/a3.png">
+      <img class="avatar-option" src="assets/avatars/a4.png">
+      <img class="avatar-option" src="assets/avatars/a5.png">
+    </div>
+
+    <button class="auth-close" id="close-avatar">×</button>
+  </div>
+</div>
+
+</body>
+</html>

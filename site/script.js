@@ -1,7 +1,8 @@
 window.addEventListener('DOMContentLoaded', () => {
-  /* ---------------------------------------------
-     Burger menu (mobile)
-  --------------------------------------------- */
+
+  /* --------------------------------------------------------------
+     1. BURGER MENU (mobile)
+  -------------------------------------------------------------- */
   const burger = document.querySelector('.burger');
   const nav = document.querySelector('.nav');
 
@@ -11,9 +12,10 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ---------------------------------------------
-     Sélecteurs modales / formulaires
-  --------------------------------------------- */
+
+  /* --------------------------------------------------------------
+     2. SÉLECTEURS DES MODALES & FORMULAIRES
+  -------------------------------------------------------------- */
   const loginBtn = document.querySelector('#btn-login');
 
   const loginModal = document.querySelector('#login-modal');
@@ -34,24 +36,22 @@ window.addEventListener('DOMContentLoaded', () => {
   const linkOpenRegister = document.querySelector('#open-register');
   const linkOpenLogin = document.querySelector('#open-login');
 
-  /* ---------------------------------------------
-     Helpers ouverture / fermeture
-  --------------------------------------------- */
+
+  /* --------------------------------------------------------------
+     3. OUVERTURE / FERMETURE MODALES
+  -------------------------------------------------------------- */
   function openModal(modal) {
-    if (!modal) return;
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden', 'false');
+    modal?.classList.add('open');
+    modal?.setAttribute('aria-hidden', 'false');
   }
 
   function closeModal(modal) {
-    if (!modal) return;
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden', 'true');
+    modal?.classList.remove('open');
+    modal?.setAttribute('aria-hidden', 'true');
   }
 
-  /* ---------------------------------------------
-     Connexion : ouvrir / fermer
-  --------------------------------------------- */
+
+  /* -------------------- Ouvrir la modale de connexion -------------------- */
   if (loginBtn) {
     loginBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -59,47 +59,53 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if (loginClose) {
-    loginClose.addEventListener('click', () => closeModal(loginModal));
-  }
+  /* -------------------- Fermer modale login -------------------- */
+  loginClose?.addEventListener('click', () => closeModal(loginModal));
+  loginBackdrop?.addEventListener('click', () => closeModal(loginModal));
 
-  if (loginBackdrop) {
-    loginBackdrop.addEventListener('click', () => closeModal(loginModal));
-  }
+  /* -------------------- Fermer modale inscription -------------------- */
+  registerClose?.addEventListener('click', () => closeModal(registerModal));
+  registerBackdrop?.addEventListener('click', () => closeModal(registerModal));
 
-  /* ---------------------------------------------
-     Inscription : fermer (X / backdrop)
-  --------------------------------------------- */
-  if (registerClose) {
-    registerClose.addEventListener('click', () => closeModal(registerModal));
-  }
 
-  if (registerBackdrop) {
-    registerBackdrop.addEventListener('click', () => closeModal(registerModal));
-  }
+  /* --------------------------------------------------------------
+     4. TRANSITION SLIDE ENTRE CONNEXION <-> INSCRIPTION
+  -------------------------------------------------------------- */
 
-  /* ---------------------------------------------
-     Switch Connexion <-> Inscription
-  --------------------------------------------- */
-  if (linkOpenRegister) {
-    linkOpenRegister.addEventListener('click', (e) => {
-      e.preventDefault();
+  function showRegister() {
+    loginModal.classList.add("slide-left");
+
+    setTimeout(() => {
       closeModal(loginModal);
+      loginModal.classList.remove("slide-left");
       openModal(registerModal);
-    });
+    }, 200);
   }
 
-  if (linkOpenLogin) {
-    linkOpenLogin.addEventListener('click', (e) => {
-      e.preventDefault();
+  function showLogin() {
+    registerModal.classList.add("slide-right");
+
+    setTimeout(() => {
       closeModal(registerModal);
+      registerModal.classList.remove("slide-right");
       openModal(loginModal);
-    });
+    }, 200);
   }
 
-  /* ---------------------------------------------
-     Fermer avec la touche Echap
-  --------------------------------------------- */
+  linkOpenRegister?.addEventListener('click', (e) => {
+    e.preventDefault();
+    showRegister();
+  });
+
+  linkOpenLogin?.addEventListener('click', (e) => {
+    e.preventDefault();
+    showLogin();
+  });
+
+
+  /* --------------------------------------------------------------
+     5. FERMETURE AVEC LA TOUCHE ÉCHAP
+  -------------------------------------------------------------- */
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeModal(loginModal);
@@ -107,70 +113,73 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  /* ---------------------------------------------
-     Validation formulaire de connexion (simple)
-  --------------------------------------------- */
+
+  /* --------------------------------------------------------------
+     6. VALIDATION FORMULAIRE DE CONNEXION + LOADER
+  -------------------------------------------------------------- */
   if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      if (loginError) loginError.textContent = '';
+      loginError.textContent = "";
 
-      const email = loginForm.elements['email']?.value.trim();
-      const password = loginForm.elements['password']?.value.trim();
+      const email = loginForm.elements['email'].value.trim();
+      const password = loginForm.elements['password'].value.trim();
 
       if (!email || !password) {
-        if (loginError) loginError.textContent = 'Merci de renseigner e-mail et mot de passe.';
+        loginError.textContent = "Merci de renseigner e-mail et mot de passe.";
         return;
       }
 
-      // Ici tu appelleras ton API de login
-      alert('Connexion simulée (à remplacer par ton API).');
-      closeModal(loginModal);
-      loginForm.reset();
+      // Loader animé
+      const submitBtn = loginForm.querySelector('.auth-submit');
+      submitBtn.innerHTML = '<div class="loader"></div>';
+
+      setTimeout(() => {
+        alert('Connexion réussie (simulation).');
+
+        submitBtn.textContent = "Se connecter";
+        closeModal(loginModal);
+        loginForm.reset();
+      }, 1500);
     });
   }
 
-  /* ---------------------------------------------
-     Validation formulaire de création de compte
-  --------------------------------------------- */
+
+  /* --------------------------------------------------------------
+     7. VALIDATION FORMULAIRE D'INSCRIPTION
+  -------------------------------------------------------------- */
   if (registerForm) {
     registerForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      // Reset erreurs visuelles
-      if (registerError) registerError.textContent = '';
+      registerError.textContent = "";
       const inputs = registerForm.querySelectorAll('input');
-      inputs.forEach((input) => input.classList.remove('input-error'));
+      inputs.forEach(i => i.classList.remove('input-error'));
 
-      const email = registerForm.elements['email']?.value.trim();
-      const password = registerForm.elements['password']?.value;
-      const confirm = registerForm.elements['confirm']?.value;
+      const email = registerForm.elements['email'].value.trim();
+      const password = registerForm.elements['password'].value;
+      const confirm = registerForm.elements['confirm'].value;
 
       let hasError = false;
 
-      // Champs vides
       if (!email || !password || !confirm) {
-        if (registerError) registerError.textContent = 'Merci de remplir tous les champs.';
-        inputs.forEach((input) => {
-          if (!input.value.trim()) {
-            input.classList.add('input-error');
-          }
+        registerError.textContent = "Merci de remplir tous les champs.";
+        inputs.forEach(i => {
+          if (!i.value.trim()) i.classList.add('input-error');
         });
         hasError = true;
       }
 
-      // Longueur du mot de passe
       if (!hasError && password.length < 8) {
-        if (registerError) registerError.textContent = 'Le mot de passe doit contenir au moins 8 caractères.';
+        registerError.textContent = "Le mot de passe doit faire au moins 8 caractères.";
         registerForm.elements['password'].classList.add('input-error');
         registerForm.elements['confirm'].classList.add('input-error');
         hasError = true;
       }
 
-      // Correspondance des mots de passe
       if (!hasError && password !== confirm) {
-        if (registerError) registerError.textContent = 'Les mots de passe ne correspondent pas.';
+        registerError.textContent = "Les mots de passe ne correspondent pas.";
         registerForm.elements['password'].classList.add('input-error');
         registerForm.elements['confirm'].classList.add('input-error');
         hasError = true;
@@ -178,11 +187,28 @@ window.addEventListener('DOMContentLoaded', () => {
 
       if (hasError) return;
 
-      // Ici tu appelleras ton API d'inscription
-      alert('Compte créé (simulation, à remplacer par ton API).');
+      alert("Compte créé avec succès (simulation).");
 
       closeModal(registerModal);
       registerForm.reset();
     });
   }
+
+
+  /* --------------------------------------------------------------
+     8. ANIMATION D'APPARITION DES SECTIONS (fade-in)
+  -------------------------------------------------------------- */
+
+  const fadeElements = document.querySelectorAll('.fade-in');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  });
+
+  fadeElements.forEach(el => observer.observe(el));
+
 });
