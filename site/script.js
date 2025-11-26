@@ -12,8 +12,9 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+
   /* --------------------------------------------------------------
-     2. AUTH / MODALES
+     2. SÉLECTEURS DES MODALES & FORMULAIRES
   -------------------------------------------------------------- */
   const loginBtn = document.querySelector('#btn-login');
 
@@ -35,16 +36,6 @@ window.addEventListener('DOMContentLoaded', () => {
   const linkOpenRegister = document.querySelector('#open-register');
   const linkOpenLogin = document.querySelector('#open-login');
 
-  // petit flag de connexion dans le localStorage
-  const AUTH_KEY = 'tp5v5-logged';
-
-  function isLoggedIn() {
-    return localStorage.getItem(AUTH_KEY) === 'true';
-  }
-
-  function setLoggedIn(value) {
-    localStorage.setItem(AUTH_KEY, value ? 'true' : 'false');
-  }
 
   /* --------------------------------------------------------------
      3. OUVERTURE / FERMETURE MODALES
@@ -59,7 +50,8 @@ window.addEventListener('DOMContentLoaded', () => {
     modal?.setAttribute('aria-hidden', 'true');
   }
 
-  // Ouvrir la modale de connexion depuis le header
+
+  /* -------------------- Ouvrir la modale de connexion -------------------- */
   if (loginBtn) {
     loginBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -67,35 +59,35 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Fermer modale login
+  /* -------------------- Fermer modale login -------------------- */
   loginClose?.addEventListener('click', () => closeModal(loginModal));
   loginBackdrop?.addEventListener('click', () => closeModal(loginModal));
 
-  // Fermer modale inscription
+  /* -------------------- Fermer modale inscription -------------------- */
   registerClose?.addEventListener('click', () => closeModal(registerModal));
   registerBackdrop?.addEventListener('click', () => closeModal(registerModal));
 
+
   /* --------------------------------------------------------------
-     4. SLIDE CONNEXION <-> INSCRIPTION
+     4. TRANSITION SLIDE ENTRE CONNEXION <-> INSCRIPTION
   -------------------------------------------------------------- */
+
   function showRegister() {
-    if (!loginModal || !registerModal) return;
-    loginModal.classList.add('slide-left');
+    loginModal.classList.add("slide-left");
 
     setTimeout(() => {
       closeModal(loginModal);
-      loginModal.classList.remove('slide-left');
+      loginModal.classList.remove("slide-left");
       openModal(registerModal);
     }, 200);
   }
 
   function showLogin() {
-    if (!loginModal || !registerModal) return;
-    registerModal.classList.add('slide-right');
+    registerModal.classList.add("slide-right");
 
     setTimeout(() => {
       closeModal(registerModal);
-      registerModal.classList.remove('slide-right');
+      registerModal.classList.remove("slide-right");
       openModal(loginModal);
     }, 200);
   }
@@ -110,8 +102,9 @@ window.addEventListener('DOMContentLoaded', () => {
     showLogin();
   });
 
+
   /* --------------------------------------------------------------
-     5. FERMETURE AVEC ESC
+     5. FERMETURE AVEC LA TOUCHE ÉCHAP
   -------------------------------------------------------------- */
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
@@ -122,29 +115,21 @@ window.addEventListener('DOMContentLoaded', () => {
 
   /* --------------------------------------------------------------
      6. VALIDATION FORMULAIRE DE CONNEXION + APPEL PHP
-     --------------------------------------------------------------*/
-
-  function handleLoginSuccess() {
-    setLoggedIn(true);
-    updateProfileLockState();
-  }
-
+  -------------------------------------------------------------- */
   if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      if (loginError) loginError.textContent = '';
+
+      loginError.textContent = "";
 
       const email = loginForm.elements['email'].value.trim();
       const password = loginForm.elements['password'].value.trim();
 
       if (!email || !password) {
-        if (loginError) {
-          loginError.textContent = 'Merci de renseigner e-mail et mot de passe.';
-        }
+        loginError.textContent = "Merci de renseigner e-mail et mot de passe.";
         return;
       }
 
-<<<<<<< HEAD
       const submitBtn = loginForm.querySelector('.auth-submit');
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<div class="loader"></div>'; // tu peux garder ton loader
@@ -176,33 +161,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-=======
-      // Loader
-      const submitBtn = loginForm.querySelector('.auth-submit');
-      if (!submitBtn) return;
-
-      submitBtn.innerHTML = '<div class="loader"></div>';
-
-      setTimeout(() => {
-        alert('Connexion réussie (simulation).');
-        handleLoginSuccess();
-
-        submitBtn.textContent = 'Se connecter';
-        closeModal(loginModal);
-        loginForm.reset();
-      }, 1500);
-    });
-  }
-
->>>>>>> origin/main
   /* --------------------------------------------------------------
-     7. VALIDATION FORMULAIRE D’INSCRIPTION
+     7. VALIDATION FORMULAIRE D'INSCRIPTION
   -------------------------------------------------------------- */
   if (registerForm) {
     registerForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      if (registerError) registerError.textContent = '';
+      registerError.textContent = "";
       const inputs = registerForm.querySelectorAll('input');
       inputs.forEach(i => i.classList.remove('input-error'));
 
@@ -213,7 +179,7 @@ window.addEventListener('DOMContentLoaded', () => {
       let hasError = false;
 
       if (!email || !password || !confirm) {
-        if (registerError) registerError.textContent = 'Merci de remplir tous les champs.';
+        registerError.textContent = "Merci de remplir tous les champs.";
         inputs.forEach(i => {
           if (!i.value.trim()) i.classList.add('input-error');
         });
@@ -221,14 +187,14 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
       if (!hasError && password.length < 8) {
-        if (registerError) registerError.textContent = 'Le mot de passe doit faire au moins 8 caractères.';
+        registerError.textContent = "Le mot de passe doit faire au moins 8 caractères.";
         registerForm.elements['password'].classList.add('input-error');
         registerForm.elements['confirm'].classList.add('input-error');
         hasError = true;
       }
 
       if (!hasError && password !== confirm) {
-        if (registerError) registerError.textContent = 'Les mots de passe ne correspondent pas.';
+        registerError.textContent = "Les mots de passe ne correspondent pas.";
         registerForm.elements['password'].classList.add('input-error');
         registerForm.elements['confirm'].classList.add('input-error');
         hasError = true;
@@ -236,15 +202,18 @@ window.addEventListener('DOMContentLoaded', () => {
 
       if (hasError) return;
 
-      alert('Compte créé avec succès (simulation).');
+      alert("Compte créé avec succès (simulation).");
+
       closeModal(registerModal);
       registerForm.reset();
     });
   }
 
+
   /* --------------------------------------------------------------
-     8. ANIMATION FADE-IN SUR LES SECTIONS
+     8. ANIMATION D'APPARITION DES SECTIONS (fade-in)
   -------------------------------------------------------------- */
+
   const fadeElements = document.querySelectorAll('.fade-in');
 
   const observer = new IntersectionObserver((entries) => {
@@ -256,4 +225,5 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   fadeElements.forEach(el => observer.observe(el));
-})
+
+});
