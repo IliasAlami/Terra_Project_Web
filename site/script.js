@@ -113,9 +113,8 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-
   /* --------------------------------------------------------------
-     6. VALIDATION FORMULAIRE DE CONNEXION + LOADER
+     6. VALIDATION FORMULAIRE DE CONNEXION + APPEL PHP
   -------------------------------------------------------------- */
   if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
@@ -131,19 +130,35 @@ window.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Loader animé
       const submitBtn = loginForm.querySelector('.auth-submit');
-      submitBtn.innerHTML = '<div class="loader"></div>';
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<div class="loader"></div>'; // tu peux garder ton loader
 
-      setTimeout(() => {
-        alert('Connexion réussie (simulation).');
-
+      fetch('login.php', {
+        method: 'POST',
+        body: new FormData(loginForm)
+      })
+      .then(res => res.text())
+      .then(text => {
+        submitBtn.disabled = false;
         submitBtn.textContent = "Se connecter";
-        closeModal(loginModal);
-        loginForm.reset();
-      }, 1500);
+
+        if (text.trim() === 'success') {
+          // Connexion OK → redirection vers la page profil
+          window.location.href = 'profile.php';
+        } else {
+          // Réponse "error" envoyée par login.php
+          loginError.textContent = "Identifiants incorrects.";
+        }
+      })
+      .catch(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Se connecter";
+        loginError.textContent = "Erreur serveur, réessaie plus tard.";
+      });
     });
   }
+
 
 
   /* --------------------------------------------------------------
