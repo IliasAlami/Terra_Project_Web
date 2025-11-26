@@ -756,3 +756,72 @@ footer small {
   transform: scale(1.05);
 }
 
+/* --------- VERROUILLAGE PAGE PROFIL QUAND NON CONNECTÉ --------- */
+
+.page-profile .profile-container {
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.page-profile-locked .profile-container {
+  filter: blur(4px);
+  opacity: 0.4;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Overlay au-dessus de la page profil */
+.profile-locked {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 150;
+}
+
+.profile-locked.show {
+  display: flex;
+}
+
+.profile-locked-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+}
+
+.profile-locked-card {
+  position: relative;
+  z-index: 1;
+  background: rgba(20,20,20,0.95);
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  padding: 24px 26px;
+  max-width: 360px;
+  text-align: center;
+  box-shadow: 0 0 24px rgba(0,0,0,0.7);
+}
+
+.profile-locked-card h2 {
+  margin-bottom: 8px;
+  font-size: 22px;
+}
+
+.profile-locked-card p {
+  margin-bottom: 16px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Boutons dans la fenêtre profil verrouillé */
+.locked-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+#locked-back-btn {
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+}
