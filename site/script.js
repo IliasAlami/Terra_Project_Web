@@ -121,44 +121,51 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   /* --------------------------------------------------------------
-     6. VALIDATION FORMULAIRE DE CONNEXION
+     6. VALIDATION FORMULAIRE DE CONNEXION + APPEL PHP
   -------------------------------------------------------------- */
-  function handleLoginSuccess() {
-    setLoggedIn(true);
-    updateProfileLockState();
-  }
-
   if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      if (loginError) loginError.textContent = '';
+
+      loginError.textContent = "";
 
       const email = loginForm.elements['email'].value.trim();
       const password = loginForm.elements['password'].value.trim();
 
       if (!email || !password) {
-        if (loginError) {
-          loginError.textContent = 'Merci de renseigner e-mail et mot de passe.';
-        }
+        loginError.textContent = "Merci de renseigner e-mail et mot de passe.";
         return;
       }
 
-      // Loader
       const submitBtn = loginForm.querySelector('.auth-submit');
-      if (!submitBtn) return;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<div class="loader"></div>'; // tu peux garder ton loader
 
-      submitBtn.innerHTML = '<div class="loader"></div>';
+      fetch('login.php', {
+        method: 'POST',
+        body: new FormData(loginForm)
+      })
+      .then(res => res.text())
+      .then(text => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Se connecter";
 
-      setTimeout(() => {
-        alert('Connexion réussie (simulation).');
-        handleLoginSuccess();
-
-        submitBtn.textContent = 'Se connecter';
-        closeModal(loginModal);
-        loginForm.reset();
-      }, 1500);
+        if (text.trim() === 'success') {
+          // Connexion OK → redirection vers la page profil
+          window.location.href = 'profile.php';
+        } else {
+          // Réponse "error" envoyée par login.php
+          loginError.textContent = "Identifiants incorrects.";
+        }
+      })
+      .catch(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Se connecter";
+        loginError.textContent = "Erreur serveur, réessaie plus tard.";
+      });
     });
   }
+
 
 
   /* --------------------------------------------------------------
