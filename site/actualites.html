@@ -11,16 +11,23 @@
 <header class="navbar">
   <div class="inner">
     <div class="logo">Terra Project<span>5v5</span></div>
+
     <nav class="nav">
       <a href="index.html">Accueil</a>
       <a href="actualites.html">Actualités</a>
       <a href="le-jeu.html">Le jeu</a>
       <a href="faq.html">FAQ</a>
     </nav>
+
     <div class="burger" aria-label="menu"><span></span><span></span><span></span></div>
-    <a class="btn btn-ghost" href="#">Télécharger</a>
+
+    <div class="auth-actions">
+      <button class="btn btn-ghost" id="btn-login">Se connecter</button>
+      <a class="btn btn-primary" href="#">Télécharger</a>
+    </div>
   </div>
 </header>
+
 
 <section class="hero" style="background-image:url('assets/hero-news.jpg')">
   <div class="content">
@@ -67,7 +74,72 @@
     <small><a href="#" style="color:var(--muted);text-decoration:none">Mentions légales</a></small>
   </div>
 </footer>
+<!-- Fenêtre de connexion -->
+<div class="auth-modal" id="login-modal" aria-hidden="true">
+  <div class="auth-modal-backdrop"></div>
+  <div class="auth-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="login-title">
+    <h2 id="login-title">Connexion au compte</h2>
+    <p class="auth-modal-subtitle">Connecte-toi à ton compte Terra Project 5v5.</p>
 
+    <form class="auth-form" id="login-form">
+      <div class="form-group">
+        <label>Adresse e-mail</label>
+        <input type="email" name="email" required placeholder="toi@exemple.com">
+      </div>
+
+      <div class="form-group">
+        <label>Mot de passe</label>
+        <input type="password" name="password" required placeholder="••••••••">
+      </div>
+
+      <p class="form-error" id="login-error"></p>
+
+      <button type="submit" class="btn btn-primary auth-submit">Se connecter</button>
+
+      <p class="auth-switch">
+        Pas de compte ? <a href="#" id="open-register">Créer un compte</a>
+      </p>
+    </form>
+
+    <button class="auth-close" type="button" aria-label="Fermer la fenêtre de connexion">×</button>
+  </div>
+</div>
+
+<!-- Fenêtre de création de compte -->
+<div class="auth-modal" id="register-modal" aria-hidden="true">
+  <div class="auth-modal-backdrop"></div>
+  <div class="auth-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="register-title">
+    <h2 id="register-title">Créer un compte</h2>
+    <p class="auth-modal-subtitle">Rejoins Terra Project 5v5 en quelques secondes.</p>
+
+    <form class="auth-form" id="register-form">
+      <div class="form-group">
+        <label>Adresse e-mail</label>
+        <input type="email" name="email" required placeholder="toi@exemple.com">
+      </div>
+
+      <div class="form-group">
+        <label>Mot de passe</label>
+        <input type="password" name="password" required placeholder="••••••••">
+      </div>
+
+      <div class="form-group">
+        <label>Confirmer le mot de passe</label>
+        <input type="password" name="confirm" required placeholder="••••••••">
+      </div>
+
+      <p class="form-error" id="register-error"></p>
+
+      <button type="submit" class="btn btn-primary auth-submit">Créer mon compte</button>
+
+      <p class="auth-switch">
+        Déjà un compte ? <a href="#" id="open-login">Se connecter</a>
+      </p>
+    </form>
+
+    <button class="auth-close" type="button" aria-label="Fermer la fenêtre de création de compte">×</button>
+  </div>
+</div>
 <script src="script.js"></script>
 </body>
 </html>
