@@ -241,6 +241,20 @@ main {
   transform: translateY(-2px);
 }
 
+.btn-ghost-logout {
+  border: 1px solid rgba(255,255,255,0.18);
+  color: #f5f5f7;
+  background: rgba(5,3,8,0.4);
+}
+
+.btn-ghost-logout:hover {
+  border-color: var(--accent);
+  background: rgba(10,10,20,0.85);
+  box-shadow: 0 0 16px rgba(50,229,255,0.7);
+  transform: translateY(-2px);
+}
+
+
 /* -----------------------------------------------------------
    Hero
 ----------------------------------------------------------- */
