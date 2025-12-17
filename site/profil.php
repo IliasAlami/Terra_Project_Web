@@ -38,7 +38,7 @@ if (!isset($_SESSION['user_id'])) {
     </nav>
 
     <div class="auth-actions">
-      <button class="btn btn-ghost-logout" >Se connecter</button>
+      <a class="btn btn-ghost-logout" href="logout.php" >Se déconnecter</a>
       <a class="btn btn-primary" href="#">Télécharger</a>
     </div>
   </div>
