@@ -121,74 +121,64 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   /* --------------------------------------------------------------
-     6. VALIDATION FORMULAIRE DE CONNEXION + APPEL PHP
+     6. VALIDATION FORMULAIRE DE CONNEXION
   -------------------------------------------------------------- */
+  function handleLoginSuccess() {
+    setLoggedIn(true);
+    updateProfileLockState();
+  }
+
   if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
-
-      loginError.textContent = "";
+      if (loginError) loginError.textContent = '';
 
       const email = loginForm.elements['email'].value.trim();
       const password = loginForm.elements['password'].value.trim();
 
       if (!email || !password) {
-        loginError.textContent = "Merci de renseigner e-mail et mot de passe.";
+        if (loginError) {
+          loginError.textContent = 'Merci de renseigner e-mail et mot de passe.';
+        }
         return;
       }
 
+      // Loader
       const submitBtn = loginForm.querySelector('.auth-submit');
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<div class="loader"></div>'; // tu peux garder ton loader
+      if (!submitBtn) return;
 
-      fetch('login.php', {
-        method: 'POST',
-        body: new FormData(loginForm)
-      })
-      .then(res => res.text())
-      .then(text => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Se connecter";
+      submitBtn.innerHTML = '<div class="loader"></div>';
 
-        if (text.trim() === 'success') {
-          // Connexion OK → redirection vers la page profil
-          window.location.href = 'profile.php';
-        } else {
-          // Réponse "error" envoyée par login.php
-          loginError.textContent = "Identifiants incorrects.";
-        }
-      })
-      .catch(() => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Se connecter";
-        loginError.textContent = "Erreur serveur, réessaie plus tard.";
-      });
+      setTimeout(() => {
+        alert('Connexion réussie (simulation).');
+        handleLoginSuccess();
+
+        submitBtn.textContent = 'Se connecter';
+        closeModal(loginModal);
+        loginForm.reset();
+      }, 1500);
     });
   }
 
-
-
   /* --------------------------------------------------------------
-   7. VALIDATION FORMULAIRE D'INSCRIPTION + APPEL PHP
--------------------------------------------------------------- */
+     7. VALIDATION FORMULAIRE D’INSCRIPTION
+  -------------------------------------------------------------- */
   if (registerForm) {
     registerForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      registerError.textContent = "";
+      if (registerError) registerError.textContent = '';
       const inputs = registerForm.querySelectorAll('input');
       inputs.forEach(i => i.classList.remove('input-error'));
 
       const email = registerForm.elements['email'].value.trim();
-      const username = registerForm.elements['username'].value.trim();
       const password = registerForm.elements['password'].value;
       const confirm = registerForm.elements['confirm'].value;
 
       let hasError = false;
 
-      // Vérifs côté front
-      if (!email || !username || !password || !confirm) {
-        registerError.textContent = "Merci de remplir tous les champs.";
+      if (!email || !password || !confirm) {
+        if (registerError) registerError.textContent = 'Merci de remplir tous les champs.';
         inputs.forEach(i => {
           if (!i.value.trim()) i.classList.add('input-error');
         });
@@ -196,14 +186,14 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
       if (!hasError && password.length < 8) {
-        registerError.textContent = "Le mot de passe doit faire au moins 8 caractères.";
+        if (registerError) registerError.textContent = 'Le mot de passe doit faire au moins 8 caractères.';
         registerForm.elements['password'].classList.add('input-error');
         registerForm.elements['confirm'].classList.add('input-error');
         hasError = true;
       }
 
       if (!hasError && password !== confirm) {
-        registerError.textContent = "Les mots de passe ne correspondent pas.";
+        if (registerError) registerError.textContent = 'Les mots de passe ne correspondent pas.';
         registerForm.elements['password'].classList.add('input-error');
         registerForm.elements['confirm'].classList.add('input-error');
         hasError = true;
@@ -211,54 +201,24 @@ window.addEventListener('DOMContentLoaded', () => {
 
       if (hasError) return;
 
-      const submitBtn = registerForm.querySelector('.auth-submit');
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<div class="loader"></div>';
-
-      fetch('register.php', {
-        method: 'POST',
-        body: new FormData(registerForm)
-      })
-        .then(res => res.text())
-        .then(text => {
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Créer mon compte";
-
-          text = text.trim();
-
-          if (text === "success") {
-            // Compte créé : on ferme la modale inscription et on ouvre la connexion
-            closeModal(registerModal);
-            registerForm.reset();
-            openModal(loginModal);
-            loginError.textContent = "Compte créé, tu peux te connecter.";
-            return;
-          }
-
-          // Gestion des erreurs simples
-          if (text === "error_exists") {
-            registerError.textContent = "Email ou nom d'utilisateur déjà utilisé.";
-          } else if (text === "error_email") {
-            registerError.textContent = "Adresse e-mail invalide.";
-          } else if (text === "error_username") {
-            registerError.textContent = "Nom d'utilisateur trop court.";
-          } else if (text === "error_password_length") {
-            registerError.textContent = "Mot de passe trop court (min. 8 caractères).";
-          } else if (text === "error_password_match") {
-            registerError.textContent = "Les mots de passe ne correspondent pas.";
-          } else {
-            registerError.textContent = "Erreur lors de la création du compte.";
-          }
-        })
-        .catch(() => {
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Créer mon compte";
-          registerError.textContent = "Erreur serveur, réessaie plus tard.";
-        });
+      alert('Compte créé avec succès (simulation).');
+      closeModal(registerModal);
+      registerForm.reset();
     });
   }
 
+  /* --------------------------------------------------------------
+     8. ANIMATION FADE-IN SUR LES SECTIONS
+  -------------------------------------------------------------- */
+  const fadeElements = document.querySelectorAll('.fade-in');
 
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  });
 
-
+  fadeElements.forEach(el => observer.observe(el));
 })
