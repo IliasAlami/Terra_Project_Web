@@ -200,15 +200,6 @@ if (!isset($_SESSION['user_id'])) {
     </div>
   </div>
 </div>
-<!-- Couche de verrouillage du profil (flou + carte) -->
-<div class="profile-lock-overlay" id="profile-lock">
-  <div class="profile-lock-card">
-    <h2>Profil verrouillé</h2>
-    <p>Connecte-toi pour accéder à ton profil joueur.</p>
-    <button class="btn btn-primary" id="profile-lock-login">Se connecter</button>
-    <button class="btn btn-ghost" id="profile-lock-back">Retour</button>
-  </div>
-</div>
 
 <script src="script.js"></script>
 <script src="profil.js"></script>
