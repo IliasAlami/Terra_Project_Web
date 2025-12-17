@@ -152,7 +152,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         if (text.trim() === 'success') {
           // Connexion OK → redirection vers la page profil
-          window.location.href = 'profile.php';
+          window.location.href = 'profil.html';
         } else {
           // Réponse "error" envoyée par login.php
           loginError.textContent = "Identifiants incorrects.";
