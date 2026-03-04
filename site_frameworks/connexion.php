@@ -255,7 +255,7 @@
                 <div class="mt-6 rounded-2xl border border-white/10 bg-ink-900/40 p-5">
                   <p class="text-sm text-white/70">
                     Pas de compte ?
-                    <a href="inscription.html" class="font-semibold text-white hover:text-ember-500 transition">Créer un
+                    <a href="inscription.php" class="font-semibold text-white hover:text-ember-500 transition">Créer un
                       compte</a>.
                   </p>
                 </div>
@@ -275,7 +275,19 @@
                 Entre tes identifiants pour continuer.
               </p>
 
-              <form class="mt-10 space-y-6" action="#" method="post">
+              <?php if (!empty($_GET["err"])): ?>
+                <div class="mt-6">
+                  <div class="flex items-start gap-3 rounded-2xl border border-flare-500/20 bg-flare-600/10 px-4 py-3 shadow-soft">
+                    <span class="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-flare-500 shadow-[0_0_24px_rgba(255,42,109,0.35)]"></span>
+                    <div class="text-sm">
+                      <p class="font-semibold text-white/90">Connexion refusée</p>
+                      <p class="text-white/60">Email / pseudo ou mot de passe incorrect.</p>
+                    </div>
+                  </div>
+                </div>
+              <?php endif; ?>
+
+              <form class="mt-10 space-y-6" action="login.php" method="post">
 
                 <!-- EMAIL -->
                 <div>
