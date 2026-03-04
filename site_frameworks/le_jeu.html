@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -8,7 +9,9 @@
   <!-- Fonts (proche “FPS / tactique”) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Rajdhani:wght@500;600;700&display=swap"
+    rel="stylesheet">
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -58,24 +61,29 @@
   <!-- BACKDROP (dégradés / glow) -->
   <div class="pointer-events-none fixed inset-0 overflow-hidden">
     <!-- base vignette -->
-    <div class="absolute inset-0 bg-[radial-gradient(1200px_700px_at_50%_30%,rgba(255,255,255,0.06),transparent_60%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(1200px_700px_at_50%_30%,rgba(255,255,255,0.06),transparent_60%)]">
+    </div>
 
     <!-- left flare -->
-<!-- left flare (responsive) -->
-<div class="absolute -left-24 top-24
+    <!-- left flare (responsive) -->
+    <div class="absolute -left-24 top-24
             h-[520px] w-[520px]
             sm:h-[640px] sm:w-[640px]
             lg:h-[820px] lg:w-[1220px]
             rounded-full
             bg-[radial-gradient(circle_at_30%_30%,rgba(255,59,59,0.25),transparent_60%)]
             blur-2xl">
-</div>
+    </div>
 
     <!-- right steel -->
-    <div class="absolute -right-28 top-36 h-[620px] w-[620px] rounded-full bg-[radial-gradient(circle_at_60%_30%,rgba(15,42,54,0.55),transparent_65%)] blur-2xl"></div>
+    <div
+      class="absolute -right-28 top-36 h-[620px] w-[620px] rounded-full bg-[radial-gradient(circle_at_60%_30%,rgba(15,42,54,0.55),transparent_65%)] blur-2xl">
+    </div>
 
     <!-- subtle noise (fake via gradient) -->
-    <div class="absolute inset-0 opacity-[0.10] bg-[linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:10px_10px]"></div>
+    <div
+      class="absolute inset-0 opacity-[0.10] bg-[linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:10px_10px]">
+    </div>
   </div>
 
   <!-- NAVBAR -->
@@ -84,16 +92,17 @@
       <div class="mx-auto max-w-6xl px-4">
         <div class="flex h-16 items-center justify-between">
           <!-- Brand -->
-          <a href="#" class="group flex items-center gap-3">
-            <!-- Logo placeholder -->
-            <div class="grid place-items-center h-9 w-9 rounded-xl bg-white/5 border border-white/10 shadow-soft">
-              <span class="font-display font-bold tracking-widest text-sm">TT</span>
-            </div>
+          <a href="index.html" class="group flex items-center gap-0">
+            <img src="image/TERRA_TACTICS.png" alt="Logo Terra Project"
+              class="h-16 w-auto object-contain transition-transform duration-200 group-hover:scale-110" />
+
             <div class="leading-tight">
               <div class="font-display font-bold tracking-[0.18em] text-sm text-white/90">TERRA</div>
               <div class="font-display font-bold tracking-[0.35em] text-[11px] text-flare-500/90">TACTICS</div>
             </div>
           </a>
+
+
 
           <!-- Links -->
           <nav class="hidden md:flex items-center gap-8 text-sm text-white/70">
@@ -105,13 +114,11 @@
 
           <!-- Actions -->
           <div class="flex items-center gap-3">
-            <a href="#"
-               class="hidden sm:inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold
+            <a href="#" class="hidden sm:inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold
                       border border-white/10 bg-white/5 hover:bg-white/10 transition shadow-soft">
               Se connecter
             </a>
-            <a href="#"
-               class="inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-extrabold
+            <a href="#" class="inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-extrabold
                       bg-gradient-to-r from-flare-600 to-ember-500 hover:opacity-95 transition shadow-cta">
               Télécharger
             </a>
@@ -133,8 +140,7 @@
             <a class="rounded-xl px-3 py-2 hover:bg-white/5 hover:text-white transition" href="#">FAQ</a>
             <div class="pt-2">
               <a class="inline-flex w-full items-center justify-center rounded-full px-5 py-2 text-sm font-semibold
-                        border border-white/10 bg-white/5 hover:bg-white/10 transition shadow-soft"
-                 href="#">
+                        border border-white/10 bg-white/5 hover:bg-white/10 transition shadow-soft" href="#">
                 Se connecter
               </a>
             </div>
@@ -147,39 +153,40 @@
 
   <!-- HERO -->
   <main class="relative">
-<section class="relative pt-14 sm:pt-20 pb-14 sm:pb-20">
-  <!-- Background FULL WIDTH -->
-  <div class="pointer-events-none absolute inset-0 -z-10">
-    <div class="absolute inset-0 bg-[radial-gradient(900px_420px_at_50%_30%,rgba(255,255,255,0.10),transparent_60%)]"></div>
-    <div class="absolute inset-0 bg-gradient-to-r from-flare-600/20 via-transparent to-steel/35"></div>
+    <section class="relative pt-14 sm:pt-20 pb-14 sm:pb-20">
+      <!-- Background FULL WIDTH -->
+      <div class="pointer-events-none absolute inset-0 -z-10">
+        <div
+          class="absolute inset-0 bg-[radial-gradient(900px_420px_at_50%_30%,rgba(255,255,255,0.10),transparent_60%)]">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-r from-flare-600/20 via-transparent to-steel/35"></div>
 
-    <!-- (optionnel) fondu en bas pour éviter une coupure visuelle avec la section suivante -->
-    <div class="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-b from-transparent to-ink-950"></div>
-  </div>
-
-  <!-- Contenu limité en largeur -->
-  <div class="mx-auto max-w-7xl px-4">
-    <div class="min-h-[60vh] flex flex-col items-center justify-center text-center py-10">
-      <h1 class="font-display font-extrabold uppercase tracking-tactic text-[26px] sm:text-[44px] leading-[1.25]">
-        LE FPS 5V5 SUR UNE<br class="hidden sm:block" />
-        ÎLE ABANDONNÉE
-      </h1>
-
-      <p class="mx-auto mt-6 max-w-2xl text-white/65 text-sm sm:text-base leading-relaxed">
-        Affronte des escouades d'agents surentraînés sur une île mystérieuse.
-        Précision, stratégie et sang-froid seront indispensables à votre survie.
-      </p>
-
-      <div class="mt-10 flex justify-center">
-        <a href="#jeu"
-          class="inline-flex items-center justify-center rounded-full px-7 py-3 text-sm font-extrabold uppercase tracking-widest
-                 bg-gradient-to-r from-flare-600 to-ember-500 shadow-cta hover:opacity-95 transition">
-          Découvrir le jeu
-        </a>
+        <!-- (optionnel) fondu en bas pour éviter une coupure visuelle avec la section suivante -->
+        <div class="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-b from-transparent to-ink-950"></div>
       </div>
-    </div>
-  </div>
-</section>
+
+      <!-- Contenu limité en largeur -->
+      <div class="mx-auto max-w-7xl px-4">
+        <div class="min-h-[60vh] flex flex-col items-center justify-center text-center py-10">
+          <h1 class="font-display font-extrabold uppercase tracking-tactic text-[26px] sm:text-[44px] leading-[1.25]">
+            LE FPS 5V5 SUR UNE<br class="hidden sm:block" />
+            ÎLE ABANDONNÉE
+          </h1>
+
+          <p class="mx-auto mt-6 max-w-2xl text-white/65 text-sm sm:text-base leading-relaxed">
+            Affronte des escouades d'agents surentraînés sur une île mystérieuse.
+            Précision, stratégie et sang-froid seront indispensables à votre survie.
+          </p>
+
+          <div class="mt-10 flex justify-center">
+            <a href="#jeu" class="inline-flex items-center justify-center rounded-full px-7 py-3 text-sm font-extrabold uppercase tracking-widest
+                 bg-gradient-to-r from-flare-600 to-ember-500 shadow-cta hover:opacity-95 transition">
+              Découvrir le jeu
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
 
 
@@ -196,12 +203,14 @@
 
           <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5">
             <!-- Card 1 -->
-            <article class="group rounded-[22px] border border-white/10 bg-gradient-to-br from-white/7 to-white/3 p-6 shadow-soft hover:border-white/15 transition">
+            <article
+              class="group rounded-[22px] border border-white/10 bg-gradient-to-br from-white/7 to-white/3 p-6 shadow-soft hover:border-white/15 transition">
               <div class="flex items-start justify-between gap-4">
                 <h3 class="font-display font-bold text-lg">
                   Match à mort 5v5
                 </h3>
-                <span class="h-9 w-9 rounded-xl bg-white/5 border border-white/10 grid place-items-center text-white/70">
+                <span
+                  class="h-9 w-9 rounded-xl bg-white/5 border border-white/10 grid place-items-center text-white/70">
                   ✦
                 </span>
               </div>
@@ -215,12 +224,14 @@
             </article>
 
             <!-- Card 2 -->
-            <article class="group rounded-[22px] border border-white/10 bg-gradient-to-br from-white/7 to-white/3 p-6 shadow-soft hover:border-white/15 transition">
+            <article
+              class="group rounded-[22px] border border-white/10 bg-gradient-to-br from-white/7 to-white/3 p-6 shadow-soft hover:border-white/15 transition">
               <div class="flex items-start justify-between gap-4">
                 <h3 class="font-display font-bold text-lg">
                   Lorem ipsum
                 </h3>
-                <span class="h-9 w-9 rounded-xl bg-white/5 border border-white/10 grid place-items-center text-white/70">
+                <span
+                  class="h-9 w-9 rounded-xl bg-white/5 border border-white/10 grid place-items-center text-white/70">
                   ⬢
                 </span>
               </div>
@@ -234,12 +245,14 @@
             </article>
 
             <!-- Card 3 -->
-            <article class="group rounded-[22px] border border-white/10 bg-gradient-to-br from-white/7 to-white/3 p-6 shadow-soft hover:border-white/15 transition">
+            <article
+              class="group rounded-[22px] border border-white/10 bg-gradient-to-br from-white/7 to-white/3 p-6 shadow-soft hover:border-white/15 transition">
               <div class="flex items-start justify-between gap-4">
                 <h3 class="font-display font-bold text-lg">
                   Compétitif
                 </h3>
-                <span class="h-9 w-9 rounded-xl bg-white/5 border border-white/10 grid place-items-center text-white/70">
+                <span
+                  class="h-9 w-9 rounded-xl bg-white/5 border border-white/10 grid place-items-center text-white/70">
                   ⚑
                 </span>
               </div>
@@ -258,7 +271,8 @@
 
     <!-- FOOTER -->
     <footer class="border-t border-white/5 bg-ink-950/60 backdrop-blur-xl">
-      <div class="mx-auto max-w-6xl px-4 py-10 text-sm text-white/50 flex flex-col sm:flex-row gap-3 items-center justify-between">
+      <div
+        class="mx-auto max-w-6xl px-4 py-10 text-sm text-white/50 flex flex-col sm:flex-row gap-3 items-center justify-between">
         <p>© <span id="year"></span> Terra Tactics — Tous droits réservés</p>
         <div class="flex gap-5">
           <a class="hover:text-white transition" href="#">Mentions légales</a>
@@ -278,4 +292,5 @@
     btn?.addEventListener('click', () => menu.classList.toggle('hidden'));
   </script>
 </body>
+
 </html>
