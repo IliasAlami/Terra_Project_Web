@@ -4,19 +4,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Terra Tactics</title>
+  <title>FAQ — Terra Tactics</title>
 
-  <!-- Fonts (proche “FPS / tactique”) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Rajdhani:wght@500;600;700&display=swap"
     rel="stylesheet">
 
-  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Tailwind config (palette + fonts) -->
   <script>
     tailwind.config = {
       theme: {
@@ -55,35 +52,42 @@
       }
     }
   </script>
+
+  <style>
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 400px;
+    }
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      color: #FF8A00;
+    }
+    .faq-icon {
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .faq-item.open .faq-question {
+      color: white;
+    }
+    .filter-btn.active {
+      background: linear-gradient(to right, #FF2A6D, #FF8A00);
+      border-color: transparent;
+      color: white;
+    }
+  </style>
 </head>
 
 <body class="min-h-screen bg-ink-950 text-white antialiased selection:bg-ember-500/30 selection:text-white">
-  <!-- BACKDROP (dégradés / glow) -->
+
+  <!-- BACKDROP -->
   <div class="pointer-events-none fixed inset-0 overflow-hidden">
-    <!-- base vignette -->
-    <div class="absolute inset-0 bg-[radial-gradient(1200px_700px_at_50%_30%,rgba(255,255,255,0.06),transparent_60%)]">
-    </div>
-
-    <!-- left flare -->
-    <!-- left flare (responsive) -->
-    <div class="absolute -left-24 top-24
-            h-[520px] w-[520px]
-            sm:h-[640px] sm:w-[640px]
-            lg:h-[820px] lg:w-[1220px]
-            rounded-full
-            bg-[radial-gradient(circle_at_30%_30%,rgba(255,59,59,0.25),transparent_60%)]
-            blur-2xl">
-    </div>
-
-    <!-- right steel -->
-    <div
-      class="absolute -right-28 top-36 h-[620px] w-[620px] rounded-full bg-[radial-gradient(circle_at_60%_30%,rgba(15,42,54,0.55),transparent_65%)] blur-2xl">
-    </div>
-
-    <!-- subtle noise (fake via gradient) -->
-    <div
-      class="absolute inset-0 opacity-[0.10] bg-[linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:10px_10px]">
-    </div>
+    <div class="absolute inset-0 bg-[radial-gradient(1200px_700px_at_50%_30%,rgba(255,255,255,0.06),transparent_60%)]"></div>
+    <div class="absolute -left-24 top-24 h-[520px] w-[520px] sm:h-[640px] sm:w-[640px] lg:h-[820px] lg:w-[1220px] rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(255,59,59,0.18),transparent_60%)] blur-2xl"></div>
+    <div class="absolute -right-28 top-36 h-[620px] w-[620px] rounded-full bg-[radial-gradient(circle_at_60%_30%,rgba(15,42,54,0.55),transparent_65%)] blur-2xl"></div>
+    <div class="absolute inset-0 opacity-[0.10] bg-[linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:10px_10px]"></div>
   </div>
 
   <!-- NAVBAR -->
@@ -91,41 +95,30 @@
     <div class="backdrop-blur-xl bg-ink-950/55 border-b border-white/5">
       <div class="mx-auto max-w-6xl px-4">
         <div class="flex h-16 items-center justify-between">
-          <!-- Brand -->
           <a href="index.html" class="group flex items-center gap-0">
             <img src="image/TERRA_TACTICS.png" alt="Logo Terra Project"
               class="h-16 w-auto object-contain transition-transform duration-200 group-hover:scale-110" />
-
             <div class="leading-tight">
               <div class="font-display font-bold tracking-[0.18em] text-sm text-white/90">TERRA</div>
               <div class="font-display font-bold tracking-[0.35em] text-[11px] text-flare-500/90">TACTICS</div>
             </div>
           </a>
 
-
-
-          <!-- Links -->
           <nav class="hidden md:flex items-center gap-8 text-sm text-white/70">
             <a class="hover:text-white transition" href="index.html">Accueil</a>
             <a class="hover:text-white transition" href="actualites.html">Actualités</a>
             <a class="hover:text-white transition" href="le_jeu.html">Le jeu</a>
-            <a class="hover:text-white transition" href="faq.html">FAQ</a>
+            <a class="text-white border-b border-flare-500 pb-0.5" href="faq.html">FAQ</a>
           </nav>
 
-          <!-- Actions -->
           <div class="flex items-center gap-3">
-            <a href="connexion.php" class="hidden sm:inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold
-                      border border-white/10 bg-white/5 hover:bg-white/10 transition shadow-soft">
+            <a href="connexion.php" class="hidden sm:inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold border border-white/10 bg-white/5 hover:bg-white/10 transition shadow-soft">
               Se connecter
             </a>
-            <a href="#" class="inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-extrabold
-                      bg-gradient-to-r from-flare-600 to-ember-500 hover:opacity-95 transition shadow-cta">
+            <a href="#" class="inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-extrabold bg-gradient-to-r from-flare-600 to-ember-500 hover:opacity-95 transition shadow-cta">
               Télécharger
             </a>
-
-            <!-- Mobile button -->
-            <button id="menuBtn"
-              class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition">
+            <button id="menuBtn" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition">
               <span class="text-white/80">≡</span>
             </button>
           </div>
@@ -135,146 +128,281 @@
         <div id="mobileMenu" class="md:hidden hidden pb-4">
           <div class="grid gap-2 text-sm text-white/70">
             <a class="rounded-xl px-3 py-2 hover:bg-white/5 hover:text-white transition" href="index.html">Accueil</a>
-            <a class="rounded-xl px-3 py-2 hover:bg-white/5 hover:text-white transition"
-              href="actualites.html">Actualités</a>
+            <a class="rounded-xl px-3 py-2 hover:bg-white/5 hover:text-white transition" href="actualites.html">Actualités</a>
             <a class="rounded-xl px-3 py-2 hover:bg-white/5 hover:text-white transition" href="le_jeu.html">Le jeu</a>
-            <a class="rounded-xl px-3 py-2 hover:bg-white/5 hover:text-white transition" href="faq.html">FAQ</a>
+            <a class="rounded-xl px-3 py-2 bg-white/5 text-white" href="faq.html">FAQ</a>
             <div class="pt-2">
-              <a class="inline-flex w-full items-center justify-center rounded-full px-5 py-2 text-sm font-semibold
-                        border border-white/10 bg-white/5 hover:bg-white/10 transition shadow-soft"
-                href="connexion.php">
+              <a class="inline-flex w-full items-center justify-center rounded-full px-5 py-2 text-sm font-semibold border border-white/10 bg-white/5 hover:bg-white/10 transition shadow-soft" href="connexion.php">
                 Se connecter
               </a>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </header>
 
-  <!-- HERO -->
   <main class="relative">
-    <section class="relative pt-14 sm:pt-20 pb-14 sm:pb-20">
-      <!-- Background FULL WIDTH -->
-      <div class="pointer-events-none absolute inset-0 -z-10">
-        <div
-          class="absolute inset-0 bg-[radial-gradient(900px_420px_at_50%_30%,rgba(255,255,255,0.10),transparent_60%)]">
-        </div>
-        <div class="absolute inset-0 bg-gradient-to-r from-flare-600/20 via-transparent to-steel/35"></div>
 
-        <!-- (optionnel) fondu en bas pour éviter une coupure visuelle avec la section suivante -->
-        <div class="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-b from-transparent to-ink-950"></div>
+    <!-- HERO FAQ -->
+    <section class="relative pt-14 sm:pt-20 pb-10">
+      <div class="pointer-events-none absolute inset-0 -z-10">
+        <div class="absolute inset-0 bg-[radial-gradient(900px_420px_at_50%_30%,rgba(255,255,255,0.08),transparent_60%)]"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-flare-600/15 via-transparent to-steel/30"></div>
+        <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-b from-transparent to-ink-950"></div>
       </div>
 
-      <!-- Contenu limité en largeur -->
-      <div class="mx-auto max-w-7xl px-4">
-        <div class="min-h-[60vh] flex flex-col items-center justify-center text-center py-10">
-          <h1 class="font-display font-extrabold uppercase tracking-tactic text-[26px] sm:text-[44px] leading-[1.25]">
-            LE FPS 5V5 SUR UNE<br class="hidden sm:block" />
-            ÎLE ABANDONNÉE
-          </h1>
+      <div class="mx-auto max-w-7xl px-4 text-center">
+        <p class="font-display font-semibold tracking-tactic text-xs text-flare-500/80 uppercase mb-3">Aide & Support</p>
+        <h1 class="font-display font-extrabold uppercase tracking-tactic text-[26px] sm:text-[44px] leading-[1.25]">
+          QUESTIONS FRÉQUENTES
+        </h1>
+        <p class="mx-auto mt-4 max-w-xl text-white/55 text-sm sm:text-base leading-relaxed">
+          Tout ce que vous devez savoir sur Terra Tactics — installation, gameplay, compte et compétitif.
+        </p>
 
-          <p class="mx-auto mt-6 max-w-2xl text-white/65 text-sm sm:text-base leading-relaxed">
-            Affronte des escouades d'agents surentraînés sur une île mystérieuse.
-            Précision, stratégie et sang-froid seront indispensables à votre survie.
-          </p>
-
-          <div class="mt-10 flex justify-center">
-            <a href="#jeu" class="inline-flex items-center justify-center rounded-full px-7 py-3 text-sm font-extrabold uppercase tracking-widest
-                 bg-gradient-to-r from-flare-600 to-ember-500 shadow-cta hover:opacity-95 transition">
-              Découvrir le jeu
-            </a>
-          </div>
+        <!-- Barre de recherche -->
+        <div class="mx-auto mt-8 max-w-lg relative">
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Rechercher une question..."
+            class="w-full rounded-full px-6 py-3 pr-12 text-sm bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-white/25 focus:bg-white/8 transition"
+          />
+          <span class="absolute right-5 top-1/2 -translate-y-1/2 text-white/30 text-base">⌕</span>
         </div>
       </div>
     </section>
 
+    <!-- FILTRES PAR CATÉGORIE -->
+    <section class="mx-auto max-w-4xl px-4 pb-8">
+      <div class="flex flex-wrap justify-center gap-2">
+        <button onclick="filterFaq(this, 'all')" class="filter-btn active font-display font-semibold text-sm rounded-full px-5 py-2 border border-white/10 bg-white/5 text-white/70 hover:text-white transition">
+          Tout
+        </button>
+        <button onclick="filterFaq(this, 'install')" class="filter-btn font-display font-semibold text-sm rounded-full px-5 py-2 border border-white/10 bg-white/5 text-white/70 hover:text-white transition">
+          Installation
+        </button>
+        <button onclick="filterFaq(this, 'gameplay')" class="filter-btn font-display font-semibold text-sm rounded-full px-5 py-2 border border-white/10 bg-white/5 text-white/70 hover:text-white transition">
+          Gameplay
+        </button>
+        <button onclick="filterFaq(this, 'compte')" class="filter-btn font-display font-semibold text-sm rounded-full px-5 py-2 border border-white/10 bg-white/5 text-white/70 hover:text-white transition">
+          Compte
+        </button>
+        <button onclick="filterFaq(this, 'compet')" class="filter-btn font-display font-semibold text-sm rounded-full px-5 py-2 border border-white/10 bg-white/5 text-white/70 hover:text-white transition">
+          Compétitif
+        </button>
+        <button onclick="filterFaq(this, 'technique')" class="filter-btn font-display font-semibold text-sm rounded-full px-5 py-2 border border-white/10 bg-white/5 text-white/70 hover:text-white transition">
+          Technique
+        </button>
+      </div>
+    </section>
 
+    <!-- FAQ ACCORDÉON -->
+    <section class="mx-auto max-w-4xl px-4 pb-20">
+      <div class="rounded-[28px] border border-white/10 bg-ink-900/60 shadow-glow overflow-hidden">
+        <div id="faqList" class="divide-y divide-white/8">
 
-    <!-- SECTION "Pourquoi Terra Tactics ?" -->
-    <section id="jeu" class="mx-auto max-w-7xl  pb-20">
-      <div class="rounded-[28px] border border-white/10 bg-ink-900/60 shadow-glow">
-        <div class="px-6 sm:px-10 py-10 sm:py-12">
-          <h2 class="font-display font-extrabold text-2xl sm:text-3xl">
-            Pourquoi Terra Tactics ?
-          </h2>
-          <p class="mt-3 text-white/55 text-sm sm:text-base">
-            Lorem ipsum
-          </p>
-
-          <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5">
-            <!-- Card 1 -->
-            <article
-              class="group rounded-[22px] border border-white/10 bg-gradient-to-br from-white/7 to-white/3 p-6 shadow-soft hover:border-white/15 transition">
-              <div class="flex items-start justify-between gap-4">
-                <h3 class="font-display font-bold text-lg">
-                  Match à mort 5v5
+          <!-- Installation -->
+          <div class="faq-item px-6 sm:px-8 py-5 cursor-pointer" data-cat="install" onclick="toggleFaq(this)">
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-flare-500/70 w-20 shrink-0">Install.</span>
+                <h3 class="faq-question font-display font-semibold text-base sm:text-lg text-white/80 transition">
+                  Comment télécharger et installer Terra Tactics ?
                 </h3>
-                <span
-                  class="h-9 w-9 rounded-xl bg-white/5 border border-white/10 grid place-items-center text-white/70">
-                  ✦
-                </span>
               </div>
-              <p class="mt-2 text-white/60 text-sm leading-relaxed">
-                lorem ipsum
+              <span class="faq-icon text-white/40 text-2xl font-light shrink-0">+</span>
+            </div>
+            <div class="faq-answer">
+              <p class="mt-4 ml-[92px] text-white/55 text-sm leading-relaxed">
+                Cliquez sur le bouton <strong class="text-white/80">« Télécharger »</strong> en haut de la page. Une fois le fichier d'installation téléchargé, lancez-le et suivez les instructions à l'écran. L'installation nécessite environ 15 Go d'espace disque. Le jeu est compatible Windows 10/11 (64 bits).
               </p>
-              <div class="mt-5 h-[1px] w-full bg-white/10"></div>
-              <p class="mt-4 text-xs text-white/45">
-                Tactique • Coordination • Lecture du jeu
-              </p>
-            </article>
-
-            <!-- Card 2 -->
-            <article
-              class="group rounded-[22px] border border-white/10 bg-gradient-to-br from-white/7 to-white/3 p-6 shadow-soft hover:border-white/15 transition">
-              <div class="flex items-start justify-between gap-4">
-                <h3 class="font-display font-bold text-lg">
-                  Lorem ipsum
-                </h3>
-                <span
-                  class="h-9 w-9 rounded-xl bg-white/5 border border-white/10 grid place-items-center text-white/70">
-                  ⬢
-                </span>
-              </div>
-              <p class="mt-2 text-white/60 text-sm leading-relaxed">
-                Lorem ipsum
-              </p>
-              <div class="mt-5 h-[1px] w-full bg-white/10"></div>
-              <p class="mt-4 text-xs text-white/45">
-                Armes • Agents • Cartes
-              </p>
-            </article>
-
-            <!-- Card 3 -->
-            <article
-              class="group rounded-[22px] border border-white/10 bg-gradient-to-br from-white/7 to-white/3 p-6 shadow-soft hover:border-white/15 transition">
-              <div class="flex items-start justify-between gap-4">
-                <h3 class="font-display font-bold text-lg">
-                  Compétitif
-                </h3>
-                <span
-                  class="h-9 w-9 rounded-xl bg-white/5 border border-white/10 grid place-items-center text-white/70">
-                  ⚑
-                </span>
-              </div>
-              <p class="mt-2 text-white/60 text-sm leading-relaxed">
-                Différentes tactiques, classement saisonnier.
-              </p>
-              <div class="mt-5 h-[1px] w-full bg-white/10"></div>
-              <p class="mt-4 text-xs text-white/45">
-                Rang • Saison • Récompenses
-              </p>
-            </article>
+            </div>
           </div>
+
+          <!-- Installation -->
+          <div class="faq-item px-6 sm:px-8 py-5 cursor-pointer" data-cat="install" onclick="toggleFaq(this)">
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-flare-500/70 w-20 shrink-0">Install.</span>
+                <h3 class="faq-question font-display font-semibold text-base sm:text-lg text-white/80 transition">
+                  Quelles sont les configurations minimales requises ?
+                </h3>
+              </div>
+              <span class="faq-icon text-white/40 text-2xl font-light shrink-0">+</span>
+            </div>
+            <div class="faq-answer">
+              <div class="mt-4 ml-[92px] text-white/55 text-sm leading-relaxed space-y-1">
+                <p><strong class="text-white/75">Configuration minimale :</strong> CPU Intel i5-4460 / AMD Ryzen 3 1200, 8 Go RAM, GPU GTX 960 / RX 470, 15 Go SSD.</p>
+                <p class="mt-2"><strong class="text-white/75">Configuration recommandée :</strong> CPU Intel i7-8700K / AMD Ryzen 5 3600, 16 Go RAM, GPU RTX 2060 / RX 5700, 15 Go SSD NVMe.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gameplay -->
+          <div class="faq-item px-6 sm:px-8 py-5 cursor-pointer" data-cat="gameplay" onclick="toggleFaq(this)">
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-ember-500/70 w-20 shrink-0">Gameplay</span>
+                <h3 class="faq-question font-display font-semibold text-base sm:text-lg text-white/80 transition">
+                  Comment fonctionne le mode 5v5 ?
+                </h3>
+              </div>
+              <span class="faq-icon text-white/40 text-2xl font-light shrink-0">+</span>
+            </div>
+            <div class="faq-answer">
+              <p class="mt-4 ml-[92px] text-white/55 text-sm leading-relaxed">
+                Deux équipes de 5 joueurs s'affrontent en plusieurs manches. L'objectif varie selon le mode : élimination totale, contrôle de zones ou défense/attaque d'un point stratégique. La première équipe à remporter 13 manches gagne la partie.
+              </p>
+            </div>
+          </div>
+
+          <!-- Gameplay -->
+          <div class="faq-item px-6 sm:px-8 py-5 cursor-pointer" data-cat="gameplay" onclick="toggleFaq(this)">
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-ember-500/70 w-20 shrink-0">Gameplay</span>
+                <h3 class="faq-question font-display font-semibold text-base sm:text-lg text-white/80 transition">
+                  Comment choisir et changer d'agent ?
+                </h3>
+              </div>
+              <span class="faq-icon text-white/40 text-2xl font-light shrink-0">+</span>
+            </div>
+            <div class="faq-answer">
+              <p class="mt-4 ml-[92px] text-white/55 text-sm leading-relaxed">
+                Avant chaque partie, une phase de sélection permet à chaque joueur de choisir son agent parmi ceux débloqués. Chaque agent possède des compétences uniques. Vous ne pouvez pas changer d'agent en cours de partie, mais vous pouvez modifier votre sélection entre les manches lors de la phase d'achat.
+              </p>
+            </div>
+          </div>
+
+          <!-- Compte -->
+          <div class="faq-item px-6 sm:px-8 py-5 cursor-pointer" data-cat="compte" onclick="toggleFaq(this)">
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-white/40 w-20 shrink-0">Compte</span>
+                <h3 class="faq-question font-display font-semibold text-base sm:text-lg text-white/80 transition">
+                  Comment créer un compte Terra Tactics ?
+                </h3>
+              </div>
+              <span class="faq-icon text-white/40 text-2xl font-light shrink-0">+</span>
+            </div>
+            <div class="faq-answer">
+              <p class="mt-4 ml-[92px] text-white/55 text-sm leading-relaxed">
+                Cliquez sur <strong class="text-white/80">« Se connecter »</strong> puis sur <strong class="text-white/80">« Créer un compte »</strong>. Renseignez votre adresse e-mail, choisissez un pseudo et un mot de passe sécurisé. Un e-mail de confirmation vous sera envoyé. Le compte est gratuit et donne accès à toutes les fonctionnalités de base.
+              </p>
+            </div>
+          </div>
+
+          <!-- Compte -->
+          <div class="faq-item px-6 sm:px-8 py-5 cursor-pointer" data-cat="compte" onclick="toggleFaq(this)">
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-white/40 w-20 shrink-0">Compte</span>
+                <h3 class="faq-question font-display font-semibold text-base sm:text-lg text-white/80 transition">
+                  J'ai oublié mon mot de passe, que faire ?
+                </h3>
+              </div>
+              <span class="faq-icon text-white/40 text-2xl font-light shrink-0">+</span>
+            </div>
+            <div class="faq-answer">
+              <p class="mt-4 ml-[92px] text-white/55 text-sm leading-relaxed">
+                Sur la page de connexion, cliquez sur <strong class="text-white/80">« Mot de passe oublié »</strong>. Entrez votre adresse e-mail et vous recevrez un lien de réinitialisation valable 30 minutes. Si vous ne trouvez pas l'e-mail, vérifiez vos spams ou contactez notre support.
+              </p>
+            </div>
+          </div>
+
+          <!-- Compétitif -->
+          <div class="faq-item px-6 sm:px-8 py-5 cursor-pointer" data-cat="compet" onclick="toggleFaq(this)">
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-flare-600/70 w-20 shrink-0">Compétitif</span>
+                <h3 class="faq-question font-display font-semibold text-base sm:text-lg text-white/80 transition">
+                  Comment fonctionne le système de rang ?
+                </h3>
+              </div>
+              <span class="faq-icon text-white/40 text-2xl font-light shrink-0">+</span>
+            </div>
+            <div class="faq-answer">
+              <p class="mt-4 ml-[92px] text-white/55 text-sm leading-relaxed">
+                Le système de rang comprend 8 niveaux : Bronze, Argent, Or, Platine, Diamant, Ascendant, Immortel et Radiant. Chaque victoire vous rapporte des points de rang (PR) et chaque défaite vous en retire. En début de saison, des parties de placement déterminent votre rang de départ.
+              </p>
+            </div>
+          </div>
+
+          <!-- Compétitif -->
+          <div class="faq-item px-6 sm:px-8 py-5 cursor-pointer" data-cat="compet" onclick="toggleFaq(this)">
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-flare-600/70 w-20 shrink-0">Compétitif</span>
+                <h3 class="faq-question font-display font-semibold text-base sm:text-lg text-white/80 transition">
+                  Quelles sont les récompenses de fin de saison ?
+                </h3>
+              </div>
+              <span class="faq-icon text-white/40 text-2xl font-light shrink-0">+</span>
+            </div>
+            <div class="faq-answer">
+              <p class="mt-4 ml-[92px] text-white/55 text-sm leading-relaxed">
+                À la fin de chaque saison, vous recevez des récompenses basées sur votre rang le plus élevé atteint : skins d'armes exclusifs, cartes de joueur animées, titres et emblèmes. Les joueurs Immortel et Radiant reçoivent en plus une bannière de profil unique et des points de boutique.
+              </p>
+            </div>
+          </div>
+
+          <!-- Technique -->
+          <div class="faq-item px-6 sm:px-8 py-5 cursor-pointer" data-cat="technique" onclick="toggleFaq(this)">
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-steel/90 w-20 shrink-0" style="color:#4A90A4">Technique</span>
+                <h3 class="faq-question font-display font-semibold text-base sm:text-lg text-white/80 transition">
+                  Le jeu lag ou a des performances médiocres, comment y remédier ?
+                </h3>
+              </div>
+              <span class="faq-icon text-white/40 text-2xl font-light shrink-0">+</span>
+            </div>
+            <div class="faq-answer">
+              <p class="mt-4 ml-[92px] text-white/55 text-sm leading-relaxed">
+                Vérifiez d'abord que vos pilotes graphiques sont à jour. Dans les paramètres du jeu, réduisez la qualité graphique ou activez le mode performance. Fermez les applications en arrière-plan. Si le problème persiste, vérifiez votre connexion réseau et choisissez le serveur le plus proche de chez vous.
+              </p>
+            </div>
+          </div>
+
+          <!-- Technique -->
+          <div class="faq-item px-6 sm:px-8 py-5 cursor-pointer" data-cat="technique" onclick="toggleFaq(this)">
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-bold uppercase tracking-widest w-20 shrink-0" style="color:#4A90A4">Technique</span>
+                <h3 class="faq-question font-display font-semibold text-base sm:text-lg text-white/80 transition">
+                  Le jeu ne se lance pas, que faire ?
+                </h3>
+              </div>
+              <span class="faq-icon text-white/40 text-2xl font-light shrink-0">+</span>
+            </div>
+            <div class="faq-answer">
+              <p class="mt-4 ml-[92px] text-white/55 text-sm leading-relaxed">
+                Essayez de lancer le jeu en tant qu'administrateur (clic droit → Exécuter en tant qu'administrateur). Si cela ne fonctionne pas, désinstallez et réinstallez le jeu. Vérifiez également que votre antivirus ne bloque pas l'exécutable. Pour toute aide supplémentaire, contactez notre support technique avec le fichier de log situé dans <code class="bg-white/8 px-1.5 py-0.5 rounded text-xs">Documents/TerraTactics/logs</code>.
+              </p>
+            </div>
+          </div>
+
         </div>
+      </div>
+
+      <!-- Contact support -->
+      <div class="mt-8 rounded-[22px] border border-white/10 bg-ink-900/60 shadow-soft px-6 sm:px-10 py-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div>
+          <h3 class="font-display font-bold text-xl">Vous n'avez pas trouvé votre réponse ?</h3>
+          <p class="mt-1 text-white/50 text-sm">Notre équipe support est disponible 7j/7 pour vous aider.</p>
+        </div>
+        <a href="mailto:support@terratactics.fr" class="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-extrabold bg-gradient-to-r from-flare-600 to-ember-500 hover:opacity-95 transition shadow-cta whitespace-nowrap">
+          Contacter le support
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </div>
     </section>
 
     <!-- FOOTER -->
     <footer class="border-t border-white/5 bg-ink-950/60 backdrop-blur-xl">
-      <div
-        class="mx-auto max-w-6xl px-4 py-10 text-sm text-white/50 flex flex-col sm:flex-row gap-3 items-center justify-between">
+      <div class="mx-auto max-w-6xl px-4 py-10 text-sm text-white/50 flex flex-col sm:flex-row gap-3 items-center justify-between">
         <p>© <span id="year"></span> Terra Tactics — Tous droits réservés</p>
         <div class="flex gap-5">
           <a class="hover:text-white transition" href="#">Mentions légales</a>
@@ -285,14 +413,42 @@
   </main>
 
   <script>
-    // Année auto
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Menu mobile
     const btn = document.getElementById('menuBtn');
     const menu = document.getElementById('mobileMenu');
     btn?.addEventListener('click', () => menu.classList.toggle('hidden'));
+
+    function toggleFaq(item) {
+      const isOpen = item.classList.contains('open');
+      // ferme tous
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      // ouvre celui cliqué si pas déjà ouvert
+      if (!isOpen) item.classList.add('open');
+    }
+
+    function filterFaq(clickedBtn, cat) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      clickedBtn.classList.add('active');
+
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('open');
+        if (cat === 'all' || item.dataset.cat === cat) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // Recherche en temps réel
+    document.getElementById('searchInput').addEventListener('input', function () {
+      const query = this.value.toLowerCase().trim();
+      document.querySelectorAll('.faq-item').forEach(item => {
+        const text = item.querySelector('.faq-question').textContent.toLowerCase();
+        item.style.display = (!query || text.includes(query)) ? '' : 'none';
+      });
+    });
   </script>
 </body>
-
 </html>
