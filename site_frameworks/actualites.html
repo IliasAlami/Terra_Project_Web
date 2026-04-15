@@ -4,19 +4,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Terra Tactics</title>
+  <title>Actualités — Terra Tactics</title>
 
-  <!-- Fonts (proche “FPS / tactique”) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Rajdhani:wght@500;600;700&display=swap"
     rel="stylesheet">
 
-  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Tailwind config (palette + fonts) -->
   <script>
     tailwind.config = {
       theme: {
@@ -55,35 +52,34 @@
       }
     }
   </script>
+
+  <style>
+    .news-card:hover .card-img {
+      transform: scale(1.05);
+    }
+    .badge-new {
+      animation: pulse-badge 2s ease-in-out infinite;
+    }
+    @keyframes pulse-badge {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    .filter-btn.active {
+      background: linear-gradient(to right, #FF2A6D, #FF8A00);
+      border-color: transparent;
+      color: white;
+    }
+  </style>
 </head>
 
 <body class="min-h-screen bg-ink-950 text-white antialiased selection:bg-ember-500/30 selection:text-white">
-  <!-- BACKDROP (dégradés / glow) -->
+
+  <!-- BACKDROP -->
   <div class="pointer-events-none fixed inset-0 overflow-hidden">
-    <!-- base vignette -->
-    <div class="absolute inset-0 bg-[radial-gradient(1200px_700px_at_50%_30%,rgba(255,255,255,0.06),transparent_60%)]">
-    </div>
-
-    <!-- left flare -->
-    <!-- left flare (responsive) -->
-    <div class="absolute -left-24 top-24
-            h-[520px] w-[520px]
-            sm:h-[640px] sm:w-[640px]
-            lg:h-[820px] lg:w-[1220px]
-            rounded-full
-            bg-[radial-gradient(circle_at_30%_30%,rgba(255,59,59,0.25),transparent_60%)]
-            blur-2xl">
-    </div>
-
-    <!-- right steel -->
-    <div
-      class="absolute -right-28 top-36 h-[620px] w-[620px] rounded-full bg-[radial-gradient(circle_at_60%_30%,rgba(15,42,54,0.55),transparent_65%)] blur-2xl">
-    </div>
-
-    <!-- subtle noise (fake via gradient) -->
-    <div
-      class="absolute inset-0 opacity-[0.10] bg-[linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:10px_10px]">
-    </div>
+    <div class="absolute inset-0 bg-[radial-gradient(1200px_700px_at_50%_30%,rgba(255,255,255,0.06),transparent_60%)]"></div>
+    <div class="absolute -left-24 top-24 h-[520px] w-[520px] sm:h-[640px] sm:w-[640px] lg:h-[820px] lg:w-[1220px] rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(255,59,59,0.18),transparent_60%)] blur-2xl"></div>
+    <div class="absolute -right-28 top-36 h-[620px] w-[620px] rounded-full bg-[radial-gradient(circle_at_60%_30%,rgba(15,42,54,0.55),transparent_65%)] blur-2xl"></div>
+    <div class="absolute inset-0 opacity-[0.10] bg-[linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:10px_10px]"></div>
   </div>
 
   <!-- NAVBAR -->
@@ -91,41 +87,30 @@
     <div class="backdrop-blur-xl bg-ink-950/55 border-b border-white/5">
       <div class="mx-auto max-w-6xl px-4">
         <div class="flex h-16 items-center justify-between">
-          <!-- Brand -->
           <a href="index.html" class="group flex items-center gap-0">
             <img src="image/TERRA_TACTICS.png" alt="Logo Terra Project"
               class="h-16 w-auto object-contain transition-transform duration-200 group-hover:scale-110" />
-
             <div class="leading-tight">
               <div class="font-display font-bold tracking-[0.18em] text-sm text-white/90">TERRA</div>
               <div class="font-display font-bold tracking-[0.35em] text-[11px] text-flare-500/90">TACTICS</div>
             </div>
           </a>
 
-
-
-          <!-- Links -->
           <nav class="hidden md:flex items-center gap-8 text-sm text-white/70">
             <a class="hover:text-white transition" href="index.html">Accueil</a>
-            <a class="hover:text-white transition" href="actualites.html">Actualités</a>
+            <a class="text-white border-b border-flare-500 pb-0.5" href="actualites.html">Actualités</a>
             <a class="hover:text-white transition" href="le_jeu.html">Le jeu</a>
             <a class="hover:text-white transition" href="faq.html">FAQ</a>
           </nav>
 
-          <!-- Actions -->
           <div class="flex items-center gap-3">
-            <a href="connexion.php" class="hidden sm:inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold
-                      border border-white/10 bg-white/5 hover:bg-white/10 transition shadow-soft">
+            <a href="connexion.php" class="hidden sm:inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold border border-white/10 bg-white/5 hover:bg-white/10 transition shadow-soft">
               Se connecter
             </a>
-            <a href="#" class="inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-extrabold
-                      bg-gradient-to-r from-flare-600 to-ember-500 hover:opacity-95 transition shadow-cta">
+            <a href="#" class="inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-extrabold bg-gradient-to-r from-flare-600 to-ember-500 hover:opacity-95 transition shadow-cta">
               Télécharger
             </a>
-
-            <!-- Mobile button -->
-            <button id="menuBtn"
-              class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition">
+            <button id="menuBtn" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition">
               <span class="text-white/80">≡</span>
             </button>
           </div>
@@ -135,146 +120,247 @@
         <div id="mobileMenu" class="md:hidden hidden pb-4">
           <div class="grid gap-2 text-sm text-white/70">
             <a class="rounded-xl px-3 py-2 hover:bg-white/5 hover:text-white transition" href="index.html">Accueil</a>
-            <a class="rounded-xl px-3 py-2 hover:bg-white/5 hover:text-white transition"
-              href="actualites.html">Actualités</a>
+            <a class="rounded-xl px-3 py-2 bg-white/5 text-white" href="actualites.html">Actualités</a>
             <a class="rounded-xl px-3 py-2 hover:bg-white/5 hover:text-white transition" href="le_jeu.html">Le jeu</a>
             <a class="rounded-xl px-3 py-2 hover:bg-white/5 hover:text-white transition" href="faq.html">FAQ</a>
             <div class="pt-2">
-              <a class="inline-flex w-full items-center justify-center rounded-full px-5 py-2 text-sm font-semibold
-                        border border-white/10 bg-white/5 hover:bg-white/10 transition shadow-soft"
-                href="connexion.php">
+              <a class="inline-flex w-full items-center justify-center rounded-full px-5 py-2 text-sm font-semibold border border-white/10 bg-white/5 hover:bg-white/10 transition shadow-soft" href="connexion.php">
                 Se connecter
               </a>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </header>
 
-  <!-- HERO -->
   <main class="relative">
-    <section class="relative pt-14 sm:pt-20 pb-14 sm:pb-20">
-      <!-- Background FULL WIDTH -->
-      <div class="pointer-events-none absolute inset-0 -z-10">
-        <div
-          class="absolute inset-0 bg-[radial-gradient(900px_420px_at_50%_30%,rgba(255,255,255,0.10),transparent_60%)]">
-        </div>
-        <div class="absolute inset-0 bg-gradient-to-r from-flare-600/20 via-transparent to-steel/35"></div>
 
-        <!-- (optionnel) fondu en bas pour éviter une coupure visuelle avec la section suivante -->
-        <div class="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-b from-transparent to-ink-950"></div>
+    <!-- HERO ACTUALITÉS -->
+    <section class="relative pt-14 sm:pt-20 pb-10">
+      <div class="pointer-events-none absolute inset-0 -z-10">
+        <div class="absolute inset-0 bg-[radial-gradient(900px_420px_at_50%_30%,rgba(255,255,255,0.08),transparent_60%)]"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-flare-600/15 via-transparent to-steel/30"></div>
+        <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-b from-transparent to-ink-950"></div>
       </div>
 
-      <!-- Contenu limité en largeur -->
-      <div class="mx-auto max-w-7xl px-4">
-        <div class="min-h-[60vh] flex flex-col items-center justify-center text-center py-10">
-          <h1 class="font-display font-extrabold uppercase tracking-tactic text-[26px] sm:text-[44px] leading-[1.25]">
-            LE FPS 5V5 SUR UNE<br class="hidden sm:block" />
-            ÎLE ABANDONNÉE
-          </h1>
+      <div class="mx-auto max-w-7xl px-4 text-center">
+        <p class="font-display font-semibold tracking-tactic text-xs text-flare-500/80 uppercase mb-3">Dernières nouvelles</p>
+        <h1 class="font-display font-extrabold uppercase tracking-tactic text-[26px] sm:text-[44px] leading-[1.25]">
+          ACTUALITÉS
+        </h1>
+        <p class="mx-auto mt-4 max-w-xl text-white/55 text-sm sm:text-base leading-relaxed">
+          Patches, événements, nouvelles cartes et agents — restez au cœur de l'action.
+        </p>
+      </div>
+    </section>
 
-          <p class="mx-auto mt-6 max-w-2xl text-white/65 text-sm sm:text-base leading-relaxed">
-            Affronte des escouades d'agents surentraînés sur une île mystérieuse.
-            Précision, stratégie et sang-froid seront indispensables à votre survie.
-          </p>
-
-          <div class="mt-10 flex justify-center">
-            <a href="#jeu" class="inline-flex items-center justify-center rounded-full px-7 py-3 text-sm font-extrabold uppercase tracking-widest
-                 bg-gradient-to-r from-flare-600 to-ember-500 shadow-cta hover:opacity-95 transition">
-              Découvrir le jeu
-            </a>
+    <!-- ARTICLE À LA UNE -->
+    <section class="mx-auto max-w-7xl px-4 pb-10">
+      <div class="news-card group relative overflow-hidden rounded-[28px] border border-white/10 bg-ink-900/60 shadow-glow cursor-pointer">
+        <!-- Image placeholder -->
+        <div class="overflow-hidden h-56 sm:h-80 bg-gradient-to-br from-flare-600/30 via-ink-800 to-steel/60 relative">
+          <div class="card-img absolute inset-0 transition-transform duration-700 bg-[radial-gradient(ellipse_at_30%_50%,rgba(255,59,59,0.35),transparent_60%)]"></div>
+          <!-- Overlay texte sur image -->
+          <div class="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/40 to-transparent"></div>
+          <div class="absolute bottom-6 left-6 right-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="badge-new inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold bg-gradient-to-r from-flare-600 to-ember-500 text-white uppercase tracking-widest">
+                ● Nouveau
+              </span>
+              <span class="rounded-full px-3 py-1 text-xs font-semibold bg-white/10 border border-white/10 text-white/70 uppercase tracking-widest">
+                Patch notes
+              </span>
+            </div>
+            <h2 class="font-display font-extrabold text-2xl sm:text-4xl leading-tight">
+              PATCH 1.4 — NOUVELLE CARTE : ÎLE NOIRE
+            </h2>
+            <p class="mt-2 text-white/60 text-sm sm:text-base max-w-2xl">
+              Découvrez la nouvelle carte compétitive Île Noire, l'équilibrage des armes et les corrections de bugs majeures de cette mise à jour.
+            </p>
+            <div class="mt-4 flex items-center gap-4 text-xs text-white/45">
+              <span>20 mars 2026</span>
+              <span>•</span>
+              <span>Équipe Terra Tactics</span>
+              <span>•</span>
+              <span>5 min de lecture</span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- FILTRES -->
+    <section class="mx-auto max-w-7xl px-4 pb-8">
+      <div class="flex flex-wrap gap-2">
+        <button onclick="filterNews(this, 'all')" class="filter-btn active font-display font-semibold text-sm rounded-full px-5 py-2 border border-white/10 bg-white/5 text-white/70 hover:text-white transition">
+          Tout
+        </button>
+        <button onclick="filterNews(this, 'patch')" class="filter-btn font-display font-semibold text-sm rounded-full px-5 py-2 border border-white/10 bg-white/5 text-white/70 hover:text-white transition">
+          Patch Notes
+        </button>
+        <button onclick="filterNews(this, 'event')" class="filter-btn font-display font-semibold text-sm rounded-full px-5 py-2 border border-white/10 bg-white/5 text-white/70 hover:text-white transition">
+          Événements
+        </button>
+        <button onclick="filterNews(this, 'agent')" class="filter-btn font-display font-semibold text-sm rounded-full px-5 py-2 border border-white/10 bg-white/5 text-white/70 hover:text-white transition">
+          Agents
+        </button>
+        <button onclick="filterNews(this, 'meta')" class="filter-btn font-display font-semibold text-sm rounded-full px-5 py-2 border border-white/10 bg-white/5 text-white/70 hover:text-white transition">
+          Méta
+        </button>
+      </div>
+    </section>
 
+    <!-- GRILLE D'ARTICLES -->
+    <section class="mx-auto max-w-7xl px-4 pb-20">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="newsGrid">
 
-    <!-- SECTION "Pourquoi Terra Tactics ?" -->
-    <section id="jeu" class="mx-auto max-w-7xl  pb-20">
-      <div class="rounded-[28px] border border-white/10 bg-ink-900/60 shadow-glow">
-        <div class="px-6 sm:px-10 py-10 sm:py-12">
-          <h2 class="font-display font-extrabold text-2xl sm:text-3xl">
-            Pourquoi Terra Tactics ?
-          </h2>
-          <p class="mt-3 text-white/55 text-sm sm:text-base">
-            Lorem ipsum
-          </p>
-
-          <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5">
-            <!-- Card 1 -->
-            <article
-              class="group rounded-[22px] border border-white/10 bg-gradient-to-br from-white/7 to-white/3 p-6 shadow-soft hover:border-white/15 transition">
-              <div class="flex items-start justify-between gap-4">
-                <h3 class="font-display font-bold text-lg">
-                  Match à mort 5v5
-                </h3>
-                <span
-                  class="h-9 w-9 rounded-xl bg-white/5 border border-white/10 grid place-items-center text-white/70">
-                  ✦
-                </span>
-              </div>
-              <p class="mt-2 text-white/60 text-sm leading-relaxed">
-                lorem ipsum
-              </p>
-              <div class="mt-5 h-[1px] w-full bg-white/10"></div>
-              <p class="mt-4 text-xs text-white/45">
-                Tactique • Coordination • Lecture du jeu
-              </p>
-            </article>
-
-            <!-- Card 2 -->
-            <article
-              class="group rounded-[22px] border border-white/10 bg-gradient-to-br from-white/7 to-white/3 p-6 shadow-soft hover:border-white/15 transition">
-              <div class="flex items-start justify-between gap-4">
-                <h3 class="font-display font-bold text-lg">
-                  Lorem ipsum
-                </h3>
-                <span
-                  class="h-9 w-9 rounded-xl bg-white/5 border border-white/10 grid place-items-center text-white/70">
-                  ⬢
-                </span>
-              </div>
-              <p class="mt-2 text-white/60 text-sm leading-relaxed">
-                Lorem ipsum
-              </p>
-              <div class="mt-5 h-[1px] w-full bg-white/10"></div>
-              <p class="mt-4 text-xs text-white/45">
-                Armes • Agents • Cartes
-              </p>
-            </article>
-
-            <!-- Card 3 -->
-            <article
-              class="group rounded-[22px] border border-white/10 bg-gradient-to-br from-white/7 to-white/3 p-6 shadow-soft hover:border-white/15 transition">
-              <div class="flex items-start justify-between gap-4">
-                <h3 class="font-display font-bold text-lg">
-                  Compétitif
-                </h3>
-                <span
-                  class="h-9 w-9 rounded-xl bg-white/5 border border-white/10 grid place-items-center text-white/70">
-                  ⚑
-                </span>
-              </div>
-              <p class="mt-2 text-white/60 text-sm leading-relaxed">
-                Différentes tactiques, classement saisonnier.
-              </p>
-              <div class="mt-5 h-[1px] w-full bg-white/10"></div>
-              <p class="mt-4 text-xs text-white/45">
-                Rang • Saison • Récompenses
-              </p>
-            </article>
+        <!-- Article 1 -->
+        <article data-cat="patch" class="news-card group rounded-[22px] border border-white/10 bg-ink-900/60 shadow-soft hover:border-white/20 transition-all duration-300 overflow-hidden cursor-pointer">
+          <div class="overflow-hidden h-40 bg-gradient-to-br from-flare-600/25 via-ink-800 to-ink-900 relative">
+            <div class="card-img absolute inset-0 transition-transform duration-500 bg-[radial-gradient(ellipse_at_20%_50%,rgba(255,42,109,0.3),transparent_70%)]"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-900/80 to-transparent"></div>
+            <span class="absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-bold bg-flare-600/80 text-white uppercase tracking-widest">Patch Notes</span>
           </div>
-        </div>
+          <div class="p-5">
+            <h3 class="font-display font-bold text-lg leading-snug group-hover:text-ember-500 transition">
+              Patch 1.3.2 — Équilibrage des agents & armes
+            </h3>
+            <p class="mt-2 text-white/55 text-sm leading-relaxed">
+              Nerfs sur le Phantom, buffs sur le Marshal, et ajustements des compétences de 3 agents. Détail complet des changements.
+            </p>
+            <div class="mt-4 h-[1px] w-full bg-white/8"></div>
+            <div class="mt-3 flex items-center justify-between text-xs text-white/40">
+              <span>15 mars 2026</span>
+              <span>3 min</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 2 -->
+        <article data-cat="event" class="news-card group rounded-[22px] border border-white/10 bg-ink-900/60 shadow-soft hover:border-white/20 transition-all duration-300 overflow-hidden cursor-pointer">
+          <div class="overflow-hidden h-40 bg-gradient-to-br from-ember-600/25 via-ink-800 to-ink-900 relative">
+            <div class="card-img absolute inset-0 transition-transform duration-500 bg-[radial-gradient(ellipse_at_80%_30%,rgba(255,138,0,0.35),transparent_70%)]"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-900/80 to-transparent"></div>
+            <span class="absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-bold bg-ember-500/80 text-white uppercase tracking-widest">Événement</span>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display font-bold text-lg leading-snug group-hover:text-ember-500 transition">
+              Opération Tempête de Sable — Saison 2
+            </h3>
+            <p class="mt-2 text-white/55 text-sm leading-relaxed">
+              Une nouvelle saison compétitive débute. Grimpez dans les rangs, débloquez des récompenses exclusives et prouvez votre valeur.
+            </p>
+            <div class="mt-4 h-[1px] w-full bg-white/8"></div>
+            <div class="mt-3 flex items-center justify-between text-xs text-white/40">
+              <span>10 mars 2026</span>
+              <span>4 min</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 3 -->
+        <article data-cat="agent" class="news-card group rounded-[22px] border border-white/10 bg-ink-900/60 shadow-soft hover:border-white/20 transition-all duration-300 overflow-hidden cursor-pointer">
+          <div class="overflow-hidden h-40 bg-gradient-to-br from-steel/60 via-ink-800 to-ink-900 relative">
+            <div class="card-img absolute inset-0 transition-transform duration-500 bg-[radial-gradient(ellipse_at_50%_20%,rgba(15,42,54,0.8),transparent_70%)]"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-900/80 to-transparent"></div>
+            <span class="absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-bold bg-white/15 border border-white/20 text-white uppercase tracking-widest">Nouvel Agent</span>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display font-bold text-lg leading-snug group-hover:text-ember-500 transition">
+              Présentation de RAVEN — Agent de reconnaissance
+            </h3>
+            <p class="mt-2 text-white/55 text-sm leading-relaxed">
+              Maîtresse de l'infiltration, Raven peut déployer des drones furtifs et révéler les positions ennemies en temps réel.
+            </p>
+            <div class="mt-4 h-[1px] w-full bg-white/8"></div>
+            <div class="mt-3 flex items-center justify-between text-xs text-white/40">
+              <span>5 mars 2026</span>
+              <span>6 min</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 4 -->
+        <article data-cat="meta" class="news-card group rounded-[22px] border border-white/10 bg-ink-900/60 shadow-soft hover:border-white/20 transition-all duration-300 overflow-hidden cursor-pointer">
+          <div class="overflow-hidden h-40 bg-gradient-to-br from-flare-500/15 via-ink-800 to-ink-900 relative">
+            <div class="card-img absolute inset-0 transition-transform duration-500 bg-[radial-gradient(ellipse_at_30%_70%,rgba(255,59,59,0.2),transparent_70%)]"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-900/80 to-transparent"></div>
+            <span class="absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-bold bg-white/10 border border-white/15 text-white/80 uppercase tracking-widest">Méta</span>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display font-bold text-lg leading-snug group-hover:text-ember-500 transition">
+              Tier List Saison 2 — Les meilleures compositions
+            </h3>
+            <p class="mt-2 text-white/55 text-sm leading-relaxed">
+              Quels agents dominent le méta actuel ? Notre analyse des 50 000 parties les plus récentes pour optimiser votre équipe.
+            </p>
+            <div class="mt-4 h-[1px] w-full bg-white/8"></div>
+            <div class="mt-3 flex items-center justify-between text-xs text-white/40">
+              <span>28 fév. 2026</span>
+              <span>8 min</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 5 -->
+        <article data-cat="event" class="news-card group rounded-[22px] border border-white/10 bg-ink-900/60 shadow-soft hover:border-white/20 transition-all duration-300 overflow-hidden cursor-pointer">
+          <div class="overflow-hidden h-40 bg-gradient-to-br from-ember-500/20 via-ink-800 to-ink-900 relative">
+            <div class="card-img absolute inset-0 transition-transform duration-500 bg-[radial-gradient(ellipse_at_70%_60%,rgba(255,106,43,0.25),transparent_70%)]"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-900/80 to-transparent"></div>
+            <span class="absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-bold bg-ember-500/80 text-white uppercase tracking-widest">Événement</span>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display font-bold text-lg leading-snug group-hover:text-ember-500 transition">
+              Tournoi Invitationnel — Inscriptions ouvertes
+            </h3>
+            <p class="mt-2 text-white/55 text-sm leading-relaxed">
+              Le premier tournoi officiel Terra Tactics approche. 32 équipes s'affronteront pour remporter le titre et 10 000€ de prize pool.
+            </p>
+            <div class="mt-4 h-[1px] w-full bg-white/8"></div>
+            <div class="mt-3 flex items-center justify-between text-xs text-white/40">
+              <span>20 fév. 2026</span>
+              <span>2 min</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 6 -->
+        <article data-cat="patch" class="news-card group rounded-[22px] border border-white/10 bg-ink-900/60 shadow-soft hover:border-white/20 transition-all duration-300 overflow-hidden cursor-pointer">
+          <div class="overflow-hidden h-40 bg-gradient-to-br from-flare-600/20 via-ink-800 to-ink-900 relative">
+            <div class="card-img absolute inset-0 transition-transform duration-500 bg-[radial-gradient(ellipse_at_40%_40%,rgba(255,42,109,0.2),transparent_70%)]"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-900/80 to-transparent"></div>
+            <span class="absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-bold bg-flare-600/80 text-white uppercase tracking-widest">Patch Notes</span>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display font-bold text-lg leading-snug group-hover:text-ember-500 transition">
+              Hotfix 1.3.1 — Corrections critiques
+            </h3>
+            <p class="mt-2 text-white/55 text-sm leading-relaxed">
+              Correction du bug de téléportation sur la carte Port-Sec, du crash en fin de partie et des problèmes de hitbox rapportés.
+            </p>
+            <div class="mt-4 h-[1px] w-full bg-white/8"></div>
+            <div class="mt-3 flex items-center justify-between text-xs text-white/40">
+              <span>12 fév. 2026</span>
+              <span>1 min</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Bouton charger plus -->
+      <div class="mt-10 flex justify-center">
+        <button class="inline-flex items-center justify-center gap-2 rounded-full px-8 py-3 text-sm font-semibold border border-white/10 bg-white/5 hover:bg-white/10 transition shadow-soft">
+          Charger plus d'articles
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </button>
       </div>
     </section>
 
     <!-- FOOTER -->
     <footer class="border-t border-white/5 bg-ink-950/60 backdrop-blur-xl">
-      <div
-        class="mx-auto max-w-6xl px-4 py-10 text-sm text-white/50 flex flex-col sm:flex-row gap-3 items-center justify-between">
+      <div class="mx-auto max-w-6xl px-4 py-10 text-sm text-white/50 flex flex-col sm:flex-row gap-3 items-center justify-between">
         <p>© <span id="year"></span> Terra Tactics — Tous droits réservés</p>
         <div class="flex gap-5">
           <a class="hover:text-white transition" href="#">Mentions légales</a>
@@ -285,14 +371,26 @@
   </main>
 
   <script>
-    // Année auto
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Menu mobile
     const btn = document.getElementById('menuBtn');
     const menu = document.getElementById('mobileMenu');
     btn?.addEventListener('click', () => menu.classList.toggle('hidden'));
+
+    function filterNews(clickedBtn, cat) {
+      // update button styles
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      clickedBtn.classList.add('active');
+
+      // filter cards
+      document.querySelectorAll('#newsGrid article').forEach(card => {
+        if (cat === 'all' || card.dataset.cat === cat) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
   </script>
 </body>
-
 </html>
