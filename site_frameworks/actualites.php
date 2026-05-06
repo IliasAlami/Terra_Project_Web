@@ -1,3 +1,11 @@
+<?php
+// Étape 1 : Connexion à la base de données et récupération des articles
+require 'pdo.php';
+
+// On récupère toutes les news triées par date de création décroissante
+$stmt = $pdo->query("SELECT * FROM news ORDER BY date_creation DESC");
+$les_news = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!doctype html>
 <html lang="fr">
 
@@ -98,7 +106,7 @@
 
           <nav class="hidden md:flex items-center gap-8 text-sm text-white/70">
             <a class="hover:text-white transition" href="index.html">Accueil</a>
-            <a class="text-white border-b border-flare-500 pb-0.5" href="actualites.html">Actualités</a>
+            <a class="text-white border-b border-flare-500 pb-0.5" href="actualites.php">Actualités</a>
             <a class="hover:text-white transition" href="le_jeu.html">Le jeu</a>
             <a class="hover:text-white transition" href="faq.html">FAQ</a>
           </nav>
@@ -120,7 +128,7 @@
         <div id="mobileMenu" class="md:hidden hidden pb-4">
           <div class="grid gap-2 text-sm text-white/70">
             <a class="rounded-xl px-3 py-2 hover:bg-white/5 hover:text-white transition" href="index.html">Accueil</a>
-            <a class="rounded-xl px-3 py-2 bg-white/5 text-white" href="actualites.html">Actualités</a>
+            <a class="rounded-xl px-3 py-2 bg-white/5 text-white" href="actualites.php">Actualités</a>
             <a class="rounded-xl px-3 py-2 hover:bg-white/5 hover:text-white transition" href="le_jeu.html">Le jeu</a>
             <a class="rounded-xl px-3 py-2 hover:bg-white/5 hover:text-white transition" href="faq.html">FAQ</a>
             <div class="pt-2">
@@ -155,7 +163,7 @@
       </div>
     </section>
 
-    <!-- ARTICLE À LA UNE -->
+    <!-- ARTICLE À LA UNE (Statique) -->
     <section class="mx-auto max-w-7xl px-4 pb-10">
       <div class="news-card group relative overflow-hidden rounded-[28px] border border-white/10 bg-ink-900/60 shadow-glow cursor-pointer">
         <!-- Image placeholder -->
@@ -211,141 +219,70 @@
       </div>
     </section>
 
-    <!-- GRILLE D'ARTICLES -->
+    <!-- GRILLE D'ARTICLES DYNAMIQUE -->
     <section class="mx-auto max-w-7xl px-4 pb-20">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="newsGrid">
 
-        <!-- Article 1 -->
-        <article data-cat="patch" class="news-card group rounded-[22px] border border-white/10 bg-ink-900/60 shadow-soft hover:border-white/20 transition-all duration-300 overflow-hidden cursor-pointer">
-          <div class="overflow-hidden h-40 bg-gradient-to-br from-flare-600/25 via-ink-800 to-ink-900 relative">
+        <?php foreach ($les_news as $news): 
+          // Définir le style en fonction de la catégorie
+          $catLabel = "News";
+          $bgGradient = "from-flare-600/25 via-ink-800 to-ink-900";
+          $badgeBg = "bg-flare-600/80 text-white";
+          
+          if ($news['categorie'] === 'patch') {
+              $catLabel = "Patch Notes";
+              $bgGradient = "from-flare-600/25 via-ink-800 to-ink-900";
+              $badgeBg = "bg-flare-600/80 text-white";
+          } elseif ($news['categorie'] === 'event') {
+              $catLabel = "Événement";
+              $bgGradient = "from-ember-600/25 via-ink-800 to-ink-900";
+              $badgeBg = "bg-ember-500/80 text-white";
+          } elseif ($news['categorie'] === 'agent') {
+              $catLabel = "Agent";
+              $bgGradient = "from-steel/60 via-ink-800 to-ink-900";
+              $badgeBg = "bg-white/15 border border-white/20 text-white";
+          } elseif ($news['categorie'] === 'meta') {
+              $catLabel = "Méta";
+              $bgGradient = "from-flare-500/15 via-ink-800 to-ink-900";
+              $badgeBg = "bg-white/10 border border-white/15 text-white/80";
+          }
+
+          // Formater la date en français
+          $mois_fr = [
+              1 => 'janvier', 2 => 'février', 3 => 'mars', 4 => 'avril',
+              5 => 'mai', 6 => 'juin', 7 => 'juillet', 8 => 'août',
+              9 => 'septembre', 10 => 'octobre', 11 => 'novembre', 12 => 'décembre'
+          ];
+          $date = new DateTime($news['date_creation']);
+          $jour = $date->format('d');
+          $mois = $mois_fr[(int)$date->format('n')];
+          $annee = $date->format('Y');
+          $dateFormatee = "$jour $mois $annee";
+        ?>
+
+        <article data-cat="<?= htmlspecialchars($news['categorie']) ?>" class="news-card group rounded-[22px] border border-white/10 bg-ink-900/60 shadow-soft hover:border-white/20 transition-all duration-300 overflow-hidden cursor-pointer">
+          <div class="overflow-hidden h-40 bg-gradient-to-br <?= $bgGradient ?> relative">
             <div class="card-img absolute inset-0 transition-transform duration-500 bg-[radial-gradient(ellipse_at_20%_50%,rgba(255,42,109,0.3),transparent_70%)]"></div>
             <div class="absolute inset-0 bg-gradient-to-t from-ink-900/80 to-transparent"></div>
-            <span class="absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-bold bg-flare-600/80 text-white uppercase tracking-widest">Patch Notes</span>
+            <span class="absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-bold <?= $badgeBg ?> uppercase tracking-widest">
+              <?= htmlspecialchars($catLabel) ?>
+            </span>
           </div>
           <div class="p-5">
-            <h3 class="font-display font-bold text-lg leading-snug group-hover:text-ember-500 transition">
-              Patch 1.3.2 — Équilibrage des agents & armes
+            <h3 class="font-display font-bold text-lg leading-snug group-hover:text-ember-500 transition line-clamp-2">
+              <?= htmlspecialchars($news['titre']) ?>
             </h3>
-            <p class="mt-2 text-white/55 text-sm leading-relaxed">
-              Nerfs sur le Phantom, buffs sur le Marshal, et ajustements des compétences de 3 agents. Détail complet des changements.
+            <p class="mt-2 text-white/55 text-sm leading-relaxed line-clamp-3">
+              <?= nl2br(htmlspecialchars($news['contenu'])) ?>
             </p>
             <div class="mt-4 h-[1px] w-full bg-white/8"></div>
-            <div class="mt-3 flex items-center justify-between text-xs text-white/40">
-              <span>15 mars 2026</span>
-              <span>3 min</span>
+            <div class="mt-3 flex items-center text-xs text-white/40">
+              <span><?= $dateFormatee ?></span>
             </div>
           </div>
         </article>
 
-        <!-- Article 2 -->
-        <article data-cat="event" class="news-card group rounded-[22px] border border-white/10 bg-ink-900/60 shadow-soft hover:border-white/20 transition-all duration-300 overflow-hidden cursor-pointer">
-          <div class="overflow-hidden h-40 bg-gradient-to-br from-ember-600/25 via-ink-800 to-ink-900 relative">
-            <div class="card-img absolute inset-0 transition-transform duration-500 bg-[radial-gradient(ellipse_at_80%_30%,rgba(255,138,0,0.35),transparent_70%)]"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-ink-900/80 to-transparent"></div>
-            <span class="absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-bold bg-ember-500/80 text-white uppercase tracking-widest">Événement</span>
-          </div>
-          <div class="p-5">
-            <h3 class="font-display font-bold text-lg leading-snug group-hover:text-ember-500 transition">
-              Opération Tempête de Sable — Saison 2
-            </h3>
-            <p class="mt-2 text-white/55 text-sm leading-relaxed">
-              Une nouvelle saison compétitive débute. Grimpez dans les rangs, débloquez des récompenses exclusives et prouvez votre valeur.
-            </p>
-            <div class="mt-4 h-[1px] w-full bg-white/8"></div>
-            <div class="mt-3 flex items-center justify-between text-xs text-white/40">
-              <span>10 mars 2026</span>
-              <span>4 min</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Article 3 -->
-        <article data-cat="agent" class="news-card group rounded-[22px] border border-white/10 bg-ink-900/60 shadow-soft hover:border-white/20 transition-all duration-300 overflow-hidden cursor-pointer">
-          <div class="overflow-hidden h-40 bg-gradient-to-br from-steel/60 via-ink-800 to-ink-900 relative">
-            <div class="card-img absolute inset-0 transition-transform duration-500 bg-[radial-gradient(ellipse_at_50%_20%,rgba(15,42,54,0.8),transparent_70%)]"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-ink-900/80 to-transparent"></div>
-            <span class="absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-bold bg-white/15 border border-white/20 text-white uppercase tracking-widest">Nouvel Agent</span>
-          </div>
-          <div class="p-5">
-            <h3 class="font-display font-bold text-lg leading-snug group-hover:text-ember-500 transition">
-              Présentation de RAVEN — Agent de reconnaissance
-            </h3>
-            <p class="mt-2 text-white/55 text-sm leading-relaxed">
-              Maîtresse de l'infiltration, Raven peut déployer des drones furtifs et révéler les positions ennemies en temps réel.
-            </p>
-            <div class="mt-4 h-[1px] w-full bg-white/8"></div>
-            <div class="mt-3 flex items-center justify-between text-xs text-white/40">
-              <span>5 mars 2026</span>
-              <span>6 min</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Article 4 -->
-        <article data-cat="meta" class="news-card group rounded-[22px] border border-white/10 bg-ink-900/60 shadow-soft hover:border-white/20 transition-all duration-300 overflow-hidden cursor-pointer">
-          <div class="overflow-hidden h-40 bg-gradient-to-br from-flare-500/15 via-ink-800 to-ink-900 relative">
-            <div class="card-img absolute inset-0 transition-transform duration-500 bg-[radial-gradient(ellipse_at_30%_70%,rgba(255,59,59,0.2),transparent_70%)]"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-ink-900/80 to-transparent"></div>
-            <span class="absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-bold bg-white/10 border border-white/15 text-white/80 uppercase tracking-widest">Méta</span>
-          </div>
-          <div class="p-5">
-            <h3 class="font-display font-bold text-lg leading-snug group-hover:text-ember-500 transition">
-              Tier List Saison 2 — Les meilleures compositions
-            </h3>
-            <p class="mt-2 text-white/55 text-sm leading-relaxed">
-              Quels agents dominent le méta actuel ? Notre analyse des 50 000 parties les plus récentes pour optimiser votre équipe.
-            </p>
-            <div class="mt-4 h-[1px] w-full bg-white/8"></div>
-            <div class="mt-3 flex items-center justify-between text-xs text-white/40">
-              <span>28 fév. 2026</span>
-              <span>8 min</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Article 5 -->
-        <article data-cat="event" class="news-card group rounded-[22px] border border-white/10 bg-ink-900/60 shadow-soft hover:border-white/20 transition-all duration-300 overflow-hidden cursor-pointer">
-          <div class="overflow-hidden h-40 bg-gradient-to-br from-ember-500/20 via-ink-800 to-ink-900 relative">
-            <div class="card-img absolute inset-0 transition-transform duration-500 bg-[radial-gradient(ellipse_at_70%_60%,rgba(255,106,43,0.25),transparent_70%)]"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-ink-900/80 to-transparent"></div>
-            <span class="absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-bold bg-ember-500/80 text-white uppercase tracking-widest">Événement</span>
-          </div>
-          <div class="p-5">
-            <h3 class="font-display font-bold text-lg leading-snug group-hover:text-ember-500 transition">
-              Tournoi Invitationnel — Inscriptions ouvertes
-            </h3>
-            <p class="mt-2 text-white/55 text-sm leading-relaxed">
-              Le premier tournoi officiel Terra Tactics approche. 32 équipes s'affronteront pour remporter le titre et 10 000€ de prize pool.
-            </p>
-            <div class="mt-4 h-[1px] w-full bg-white/8"></div>
-            <div class="mt-3 flex items-center justify-between text-xs text-white/40">
-              <span>20 fév. 2026</span>
-              <span>2 min</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Article 6 -->
-        <article data-cat="patch" class="news-card group rounded-[22px] border border-white/10 bg-ink-900/60 shadow-soft hover:border-white/20 transition-all duration-300 overflow-hidden cursor-pointer">
-          <div class="overflow-hidden h-40 bg-gradient-to-br from-flare-600/20 via-ink-800 to-ink-900 relative">
-            <div class="card-img absolute inset-0 transition-transform duration-500 bg-[radial-gradient(ellipse_at_40%_40%,rgba(255,42,109,0.2),transparent_70%)]"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-ink-900/80 to-transparent"></div>
-            <span class="absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-bold bg-flare-600/80 text-white uppercase tracking-widest">Patch Notes</span>
-          </div>
-          <div class="p-5">
-            <h3 class="font-display font-bold text-lg leading-snug group-hover:text-ember-500 transition">
-              Hotfix 1.3.1 — Corrections critiques
-            </h3>
-            <p class="mt-2 text-white/55 text-sm leading-relaxed">
-              Correction du bug de téléportation sur la carte Port-Sec, du crash en fin de partie et des problèmes de hitbox rapportés.
-            </p>
-            <div class="mt-4 h-[1px] w-full bg-white/8"></div>
-            <div class="mt-3 flex items-center justify-between text-xs text-white/40">
-              <span>12 fév. 2026</span>
-              <span>1 min</span>
-            </div>
-          </div>
-        </article>
+        <?php endforeach; ?>
 
       </div>
 
